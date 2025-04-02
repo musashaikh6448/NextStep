@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { toast } from "sonner";
 import { Mail, MessageSquareText, Star, User } from "lucide-react";
+import { LoaderOverlay } from "../components/LoaderOverlay";
 
 const feedbackSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -90,7 +91,7 @@ export const Feedback: React.FC = () => {
 
   const onSubmit = async (data: FeedbackFormValues) => {
     try {
-      await axios.post("/api/feedback", data);
+      await axios.post("http://localhost:5000/nextstep/feedback", data);
       toast.success("Feedback submitted successfully!", {
         description: "Thank you for your valuable input!",
       });
@@ -278,6 +279,9 @@ export const Feedback: React.FC = () => {
           </form>
         </motion.div>
       </div>
+      <div className="">
+     <AnimatePresence>{isSubmitting && <LoaderOverlay />}</AnimatePresence>
+     </div>
     </div>
   );
 };

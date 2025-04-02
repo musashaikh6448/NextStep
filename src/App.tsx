@@ -47,10 +47,21 @@ function App() {
         <ScrollToTop />
       </Router>
 
-      <Toaster position="top-right" richColors />
-    </div>
+      <Toaster
+        position="top-center"
+        richColors
+        theme={theme} // Automatically switch theme
+        className="!text-lg !p-4 !rounded-xl !shadow-xl !w-[400px]"
+        toastOptions={{
+          className: "text-base font-medium",
+          style: {
+            padding: "16px",
+            fontSize: "18px",
+            borderRadius: "12px",
+          },
+        }}
+      />    </div>
   );
 }
 
 export default App;
-
