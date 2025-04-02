@@ -137,7 +137,7 @@ export const Contact: React.FC = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
     try {
-      await axios.post("http://localhost:5000/nextstep/contact", data);
+      await axios.post("https://next-step-backend-opal.vercel.app/nextstep/contact", data);
       toast.success("Message sent successfully!", {
         description: "We'll respond within 24 hours",
       });

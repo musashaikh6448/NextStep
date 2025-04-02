@@ -91,7 +91,7 @@ export const Feedback: React.FC = () => {
 
   const onSubmit = async (data: FeedbackFormValues) => {
     try {
-      await axios.post("http://localhost:5000/nextstep/feedback", data);
+      await axios.post("https://next-step-backend-opal.vercel.app/nextstep/feedback", data);
       toast.success("Feedback submitted successfully!", {
         description: "Thank you for your valuable input!",
       });
