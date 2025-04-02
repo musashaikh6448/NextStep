@@ -27,10 +27,10 @@ const teamMembers = [
     bio: "Backend specialist who can turn coffee into Python code. Believes in writing documentation that even future self can understand  Syntax Error Specialist",
     expertise: "Python Expert · Database Wizard",
     social: {
-      linkedin: "https://linkedin.com/in/sulemankhan",
-      email: "mailto:dev.suleman.khan@gmail.com",
-      insta: "https://instagram.com/suleman_khan55",
-      phone: "tel:+919373960682",
+      linkedin: "https://www.linkedin.com/in/shaikh-musa-77a80631a/",
+      email: "mailto:shaikhmusa6448@gmail.com",
+      insta: "https://instagram.com/shaikh.musa.08",
+      phone: "tel:+917822896448",
     },
   },
 ];

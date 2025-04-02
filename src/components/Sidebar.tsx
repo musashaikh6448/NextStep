@@ -12,6 +12,7 @@ import {
   Briefcase,
   TicketCheck,
   Braces,
+  Sparkles,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -24,6 +25,7 @@ const navItems = [
   { to: "/careers", icon: Briefcase, label: "Careers" },
   { to: "/degrees", icon: GraduationCap, label: "Degrees" },
   { to: "/certifications", icon: TicketCheck, label: "Certifications" },
+  { to: "/next-chat-ai", icon: Sparkles, label: "Next Step AI" },
   { to: "/playground", icon: Braces, label: "Live Code Playground" },
   { to: "/resume-builder", icon: FileText, label: "Resume Builder" },
   { to: "/ask-me-anything", icon: MessageCircleQuestion, label: "Ask Me Anything" },
