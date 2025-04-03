@@ -1,12 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Linkedin, Mail, Phone, Instagram } from "lucide-react";
+import sulemanimg from '../images/suleman.jpeg'
+import musaimg from '../images/musa.jpeg'
 
 const teamMembers = [
   {
     name: "Suleman Khan",
     role: "Senior Software Engineer",
-    image: "https://avatars.githubusercontent.com/u/1",
+    image: sulemanimg,
     education: "BCA Graduate (Passed, but I Have No Idea How)",
     experience: "SELECTSKILLSET, Ireland · 3+ years experience",
     bio: "Full-stack developer who believes in writing code so clean it makes the compiler smile. Tech Stack: React, Node.js, AWS (Still figuring out why cloud bills are so unpredictable)",
@@ -21,7 +23,7 @@ const teamMembers = [
   {
     name: "Shaikh Musa",
     role: "MERN Stack Developer",
-    image: "https://avatars.githubusercontent.com/u/2",
+    image: musaimg,
     education: "BCA Student (Future First Class)",
     experience: "Open Source Contributor · Tech Mentor",
     bio: "Backend specialist who can turn coffee into Python code. Believes in writing documentation that even future self can understand  Syntax Error Specialist",
@@ -212,3 +214,4 @@ export const About: React.FC = () => {
     </div>
   );
 };
+
