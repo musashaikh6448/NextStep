@@ -18,6 +18,7 @@ import { ResumeBuilder } from "./pages/ResumeBuilder";
 import CodeEditor from "./pages/CodeEditor";
 import AMAPage from "./pages/AMA";
 import NextChatAI from "./pages/NextChatAI";
+import Quiz from "./pages/Quiz";
 
 function App() {
   const theme = useStore((state) => state.theme);
@@ -39,6 +40,7 @@ function App() {
             <Route path="/community" element={<Community />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/contact-us" element={<Contact />} />
+            <Route path="/quiz" element={<Quiz />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/career/:id" element={<CareerDetails />} />
             <Route path="*" element={<WorkInProgress />} />

@@ -13,6 +13,7 @@ import {
   TicketCheck,
   Braces,
   Sparkles,
+  Brain,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -27,7 +28,7 @@ const navItems = [
   { to: "/certifications", icon: TicketCheck, label: "Certifications" },
   { to: "/next-chat-ai", icon: Sparkles, label: "Next Step AI" },
   { to: "/playground", icon: Braces, label: "Live Code Playground" },
-  { to: "/quiz", icon: Braces, label: "Quiz" },
+  { to: "/quiz", icon: Brain , label: "Quiz" },
   { to: "/resume-builder", icon: FileText, label: "Resume Builder" },
   { to: "/ask-me-anything", icon: MessageCircleQuestion, label: "Ask Me Anything" },
   { to: "/feedback", icon: BookOpen, label: "Feedback" },
