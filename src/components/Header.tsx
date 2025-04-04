@@ -64,7 +64,7 @@ export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           {/* Right Controls */}
           <div className="flex items-center gap-3">
             <motion.button
-              onClick={() => navigate("/next-chat-ai")}
+              onClick={() => navigate("/next-step-ai")}
               className="relative overflow-hidden group gradient-border rounded-xl p-[2px]"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

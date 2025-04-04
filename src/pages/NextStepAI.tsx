@@ -18,11 +18,11 @@ interface Message {
   timestamp: Date;
 }
 
-const NextChatAI: React.FC = () => {
+const NextStepAI: React.FC = () => {
   const initialMessage = {
     id: "1",
     content:
-      "Hello! I'm NextChat AI. Ask me anything about technology, programming, or career advice.",
+      "Hello! I'm NextStep AI. Ask me anything about technology, programming, or career advice.",
     sender: "ai" as const,
     timestamp: new Date(),
   };
@@ -172,7 +172,7 @@ const NextChatAI: React.FC = () => {
           <Sparkles className="w-12 h-12 text-white" />
         </motion.div>
         <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-500 bg-clip-text text-transparent mb-4">
-          NextChat AI
+          NextStep AI
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300">
           Your intelligent assistant for tech and career guidance
@@ -337,5 +337,5 @@ const NextChatAI: React.FC = () => {
   );
 };
 
-export default NextChatAI;
+export default NextStepAI;
 
