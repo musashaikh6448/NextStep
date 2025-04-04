@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Linkedin, Mail, Phone, Instagram } from "lucide-react";
+import { Linkedin, Mail, Instagram, MessageCircle } from "lucide-react"; // Changed Phone to MessageCircle for WhatsApp
 import sulemanimg from '../images/suleman.jpeg'
 import musaimg from '../images/musa.jpeg'
 
@@ -17,7 +17,7 @@ const teamMembers = [
       linkedin: "https://www.linkedin.com/in/suleman-khan-304ab6279/",
       email: "mailto:dev.suleman.khan@gmail.com",
       insta: "https://instagram.com/suleman_khan55",
-      phone: "tel:+919373960682",
+      whatsapp: "https://wa.me/919373960682", // Changed phone to whatsapp
     },
   },
   {
@@ -32,7 +32,7 @@ const teamMembers = [
       linkedin: "https://www.linkedin.com/in/shaikh-musa-77a80631a/",
       email: "mailto:dev.shaikhmusa@gmail.com",
       insta: "https://instagram.com/shaikh.musa.08",
-      phone: "tel:+917822896448",
+      whatsapp: "https://wa.me/917822896448", // Changed phone to whatsapp
     },
   },
 ];
@@ -105,15 +105,15 @@ export const About: React.FC = () => {
                         rel="noopener noreferrer"
                         className="text-gray-600 dark:text-gray-400 hover:text-blue-500 transition-colors"
                         title={
-                          platform === "phone"
-                            ? "Call after 10AM - 6PM (IST)"
+                          platform === "whatsapp"
+                            ? "Message after 10AM - 6PM (IST)"
                             : "Let's connect!"
                         }
                       >
                         {platform === "insta" ? (
                           <Instagram className="h-6 w-6" />
-                        ) : platform === "phone" ? (
-                          <Phone className="h-6 w-6" />
+                        ) : platform === "whatsapp" ? (
+                          <MessageCircle className="h-6 w-6" /> // Using MessageCircle for WhatsApp
                         ) : (
                           {
                             linkedin: <Linkedin className="h-6 w-6" />,
@@ -214,4 +214,3 @@ export const About: React.FC = () => {
     </div>
   );
 };
-
