@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Trophy, RotateCw, Filter, ChevronDown, ChevronUp, Clock, SkipForward } from 'lucide-react';
+import { ArrowRight, Trophy, RotateCw, Clock } from 'lucide-react';
 
-type Language = 'All' | 'JavaScript' | 'Python' | 'Java' | 'C++' | 'TypeScript' | 'Ruby' | 'Go' | 'Rust' | 'PHP' | 'Swift';
+type Language = 'All' | 'JavaScript' | 'Python' | 'Java' | 'C++' | 'TypeScript' | 'Ruby' | 'Go' | 'Rust' | 'PHP' | 'Swift' | 'HTML' | 'CSS' | 'ReactJS' | 'NodeJS' | 'ExpressJS' | 'Angular' | 'NextJS' | 'VueJS';
 
 interface Question {
   question: string;
   options: string[];
   answer: string;
   language: Exclude<Language, 'All'>;
+  difficulty: 'Easy' | 'Medium' | 'Hard';
 }
 
 interface QuizResult {
@@ -26,926 +27,1302 @@ interface QuizResult {
 }
 
 const Quiz: React.FC = () => {
-  // Questions database (10-15 per language)
+  // Questions database
   const questions: Question[] = [
-    // JavaScript (15 questions)
+    // JavaScript (Easy, Medium, Hard)
     {
       question: 'Which operator is used for strict equality comparison in JavaScript?',
       options: ['==', '=', '===', '!='],
       answer: '===',
-      language: 'JavaScript'
+      language: 'JavaScript',
+      difficulty: 'Easy'
     },
     {
-      question: 'What is the output of `typeof null` in JavaScript?',
-      options: ['null', 'undefined', 'object', 'string'],
+      question: 'What is the output of the following code: console.log(typeof null)?',
+      options: ['object', 'null', 'undefined', 'string'],
       answer: 'object',
-      language: 'JavaScript'
+      language: 'JavaScript',
+      difficulty: 'Medium'
     },
     {
-      question: 'Which method adds one or more elements to the end of an array?',
-      options: ['push()', 'pop()', 'shift()', 'unshift()'],
-      answer: 'push()',
-      language: 'JavaScript'
+      question: 'How do you create a function in JavaScript?',
+      options: ['function myFunction() {}', 'def myFunction() {}', 'func myFunction() {}', 'function = myFunction() {}'],
+      answer: 'function myFunction() {}',
+      language: 'JavaScript',
+      difficulty: 'Hard'
     },
     {
-      question: 'What does the "this" keyword refer to in JavaScript?',
-      options: ['The current function', 'The global object', 'The object that owns the executing code', 'The parent object'],
-      answer: 'The object that owns the executing code',
-      language: 'JavaScript'
+      question: 'What is the purpose of the `let` keyword in JavaScript?',
+      options: ['To declare a constant variable', 'To declare a block-scoped variable', 'To declare a global variable', 'To declare a function'],
+      answer: 'To declare a block-scoped variable',
+      language: 'JavaScript',
+      difficulty: 'Easy'
     },
     {
-      question: 'Which of these is NOT a JavaScript framework?',
-      options: ['React', 'Angular', 'Vue', 'Flask'],
-      answer: 'Flask',
-      language: 'JavaScript'
+      question: 'What does the `map` method do in JavaScript?',
+      options: ['Creates a new array with the results of calling a provided function on every element in the calling array', 'Removes the last element from an array', 'Adds a new element to the end of an array', 'Searches for a specific item in an array'],
+      answer: 'Creates a new array with the results of calling a provided function on every element in the calling array',
+      language: 'JavaScript',
+      difficulty: 'Medium'
     },
     {
-      question: 'What is hoisting in JavaScript?',
-      options: [
-        'Moving variable declarations to the top of their scope',
-        'A way to handle asynchronous operations',
-        'A type of loop',
-        'A method for object creation'
-      ],
-      answer: 'Moving variable declarations to the top of their scope',
-      language: 'JavaScript'
+      question: 'What is a closure in JavaScript?',
+      options: ['A function that has access to its own scope, the outer function’s scope, and the global scope', 'A function that is executed immediately after it is created', 'A function that returns another function', 'A function that is used to create objects'],
+      answer: 'A function that has access to its own scope, the outer function’s scope, and the global scope',
+      language: 'JavaScript',
+      difficulty: 'Hard'
     },
     {
-      question: 'What does the Array.map() method do?',
-      options: [
-        'Creates a new array with the results of calling a function on every element',
-        'Filters the array based on a condition',
-        'Reduces the array to a single value',
-        'Sorts the array in place'
-      ],
-      answer: 'Creates a new array with the results of calling a function on every element',
-      language: 'JavaScript'
-    },
-    {
-      question: 'What is the purpose of closures in JavaScript?',
-      options: [
-        'To create private variables',
-        'To improve performance',
-        'To handle asynchronous operations',
-        'To extend built-in objects'
-      ],
-      answer: 'To create private variables',
-      language: 'JavaScript'
-    },
-    {
-      question: 'Which of these is NOT a JavaScript data type?',
-      options: ['number', 'string', 'boolean', 'character'],
-      answer: 'character',
-      language: 'JavaScript'
-    },
-    {
-      question: 'What does the spread operator (...) do in JavaScript?',
-      options: [
-        'Expands an iterable into individual elements',
-        'Combines multiple arrays into one',
-        'Creates a deep copy of an object',
-        'All of the above'
-      ],
-      answer: 'All of the above',
-      language: 'JavaScript'
-    },
-    {
-      question: 'What is the purpose of async/await in JavaScript?',
-      options: [
-        'To write asynchronous code that looks synchronous',
-        'To improve performance of synchronous code',
-        'To handle errors in promises',
-        'To create web workers'
-      ],
-      answer: 'To write asynchronous code that looks synchronous',
-      language: 'JavaScript'
-    },
-    {
-      question: 'Which method converts a JSON string to a JavaScript object?',
-      options: ['JSON.parse()', 'JSON.stringify()', 'JSON.convert()', 'JSON.toObject()'],
-      answer: 'JSON.parse()',
-      language: 'JavaScript'
-    },
-    {
-      question: 'What is the event loop in JavaScript?',
-      options: [
-        'A mechanism that handles asynchronous callbacks',
-        'A type of for loop',
-        'A way to handle events in the DOM',
-        'A debugging tool'
-      ],
-      answer: 'A mechanism that handles asynchronous callbacks',
-      language: 'JavaScript'
-    },
-    {
-      question: 'Which of these is NOT a way to declare a variable in JavaScript?',
-      options: ['var', 'let', 'const', 'def'],
-      answer: 'def',
-      language: 'JavaScript'
-    },
-    {
-      question: 'What does the "use strict" directive do?',
-      options: [
-        'Enables strict mode which catches common coding mistakes',
-        'Improves performance',
-        'Enforces type checking',
-        'Allows using experimental features'
-      ],
-      answer: 'Enables strict mode which catches common coding mistakes',
-      language: 'JavaScript'
-    },
-
-    // Python (15 questions)
-    {
-      question: 'Which keyword defines a function in Python?',
-      options: ['func', 'def', 'function', 'fn'],
-      answer: 'def',
-      language: 'Python'
-    },
-    {
-      question: 'What is the output of `print(3 * "abc")` in Python?',
-      options: ['abcabcabc', '3abc', 'abc abc abc', 'Error'],
-      answer: 'abcabcabc',
-      language: 'Python'
-    },
-    {
-      question: 'Which of these is NOT a Python built-in data structure?',
-      options: ['list', 'tuple', 'array', 'dictionary'],
-      answer: 'array',
-      language: 'Python'
-    },
-    {
-      question: 'What does the `pass` statement do in Python?',
-      options: [
-        'Terminates the program',
-        'Does nothing, acts as a placeholder',
-        'Passes arguments to a function',
-        'Continues to the next iteration of a loop'
-      ],
-      answer: 'Does nothing, acts as a placeholder',
-      language: 'Python'
-    },
-    {
-      question: 'Which module is used for regular expressions in Python?',
-      options: ['regex', 're', 'pyregex', 'pattern'],
-      answer: 're',
-      language: 'Python'
-    },
-    {
-      question: 'How do you create a virtual environment in Python?',
-      options: [
-        'python -m venv env',
-        'virtualenv env',
-        'pip create env',
-        'Both A and B'
-      ],
-      answer: 'Both A and B',
-      language: 'Python'
-    },
-    {
-      question: 'What is the purpose of __init__.py in Python?',
-      options: [
-        'To initialize the Python interpreter',
-        'To mark a directory as a Python package',
-        'To define initialization parameters',
-        'To create a constructor for a class'
-      ],
-      answer: 'To mark a directory as a Python package',
-      language: 'Python'
-    },
-    {
-      question: 'Which of these is NOT a Python web framework?',
-      options: ['Django', 'Flask', 'Pyramid', 'Spring'],
-      answer: 'Spring',
-      language: 'Python'
-    },
-    {
-      question: 'What does list comprehension do in Python?',
-      options: [
-        'Creates a new list by applying an expression to each item',
-        'Explains what a list does',
-        'Compresses a list to save memory',
-        'Checks if a list contains certain items'
-      ],
-      answer: 'Creates a new list by applying an expression to each item',
-      language: 'Python'
-    },
-    {
-      question: 'What is the correct way to open a file for reading in Python?',
-      options: [
-        'open("file.txt", "r")',
-        'open("file.txt", "read")',
-        'open("file.txt")',
-        'Both A and C'
-      ],
-      answer: 'Both A and C',
-      language: 'Python'
-    },
-    {
-      question: 'Which method is used to get the length of a list?',
-      options: ['length()', 'size()', 'len()', 'count()'],
-      answer: 'len()',
-      language: 'Python'
-    },
-    {
-      question: 'What does the @staticmethod decorator do?',
-      options: [
-        'Marks a method as not requiring the self parameter',
-        'Makes a method private',
-        'Converts a method to a property',
-        'Allows method overloading'
-      ],
-      answer: 'Marks a method as not requiring the self parameter',
-      language: 'Python'
-    },
-    {
-      question: 'Which of these is NOT a Python built-in function?',
-      options: ['print', 'input', 'log', 'range'],
-      answer: 'log',
-      language: 'Python'
-    },
-    {
-      question: 'What is the output of `print(5 / 2)` in Python 3?',
-      options: ['2', '2.5', '2.0', '2.500000'],
-      answer: '2.5',
-      language: 'Python'
-    },
-    {
-      question: 'Which operator is used for exponentiation in Python?',
-      options: ['^', '**', '^^', 'exp'],
-      answer: '**',
-      language: 'Python'
-    },
-
-    // Java (15 questions)
-    {
-      question: 'What is the correct file extension for Java files?',
-      options: ['.js', '.py', '.java', '.class'],
-      answer: '.java',
-      language: 'Java'
-    },
-    {
-      question: 'Which keyword is used to create an object in Java?',
-      options: ['create', 'new', 'object', 'make'],
-      answer: 'new',
-      language: 'Java'
-    },
-    {
-      question: 'What is the superclass of all classes in Java?',
-      options: ['Object', 'Super', 'Parent', 'Base'],
-      answer: 'Object',
-      language: 'Java'
-    },
-    {
-      question: 'Which of these is NOT a primitive data type in Java?',
-      options: ['int', 'float', 'String', 'boolean'],
-      answer: 'String',
-      language: 'Java'
-    },
-    {
-      question: 'What is the default value of a boolean variable in Java?',
-      options: ['true', 'false', 'null', 'undefined'],
+      question: 'What is the output of the following code: console.log(0.1 + 0.2 === 0.3)?',
+      options: ['true', 'false', 'undefined', 'NaN'],
       answer: 'false',
-      language: 'Java'
+      language: 'JavaScript',
+      difficulty: 'Easy'
     },
     {
-      question: 'Which keyword makes a variable constant in Java?',
-      options: ['const', 'final', 'static', 'readonly'],
-      answer: 'final',
-      language: 'Java'
+      question: 'What is the purpose of the `Promise` object in JavaScript?',
+      options: ['To handle asynchronous operations', 'To create a new array', 'To define a class', 'To perform mathematical calculations'],
+      answer: 'To handle asynchronous operations',
+      language: 'JavaScript',
+      difficulty: 'Medium'
     },
     {
-      question: 'What is the entry point of a Java program?',
-      options: [
-        'main() method',
-        'init() method',
-        'start() method',
-        'run() method'
-      ],
-      answer: 'main() method',
-      language: 'Java'
+      question: 'What is the output of the following code: console.log(typeof NaN)?',
+      options: ['number', 'undefined', 'NaN', 'object'],
+      answer: 'number',
+      language: 'JavaScript',
+      difficulty: 'Hard'
     },
     {
-      question: 'Which collection implements a dynamic array in Java?',
-      options: ['ArrayList', 'LinkedList', 'HashSet', 'TreeMap'],
-      answer: 'ArrayList',
-      language: 'Java'
-    },
-    {
-      question: 'What does JVM stand for?',
-      options: [
-        'Java Virtual Machine',
-        'Java Variable Manager',
-        'Java Verified Method',
-        'Java Visual Manager'
-      ],
-      answer: 'Java Virtual Machine',
-      language: 'Java'
-    },
-    {
-      question: 'Which keyword is used for inheritance in Java?',
-      options: ['inherits', 'extends', 'implements', 'super'],
-      answer: 'extends',
-      language: 'Java'
-    },
-    {
-      question: 'What is method overloading in Java?',
-      options: [
-        'Having multiple methods with same name but different parameters',
-        'Overriding a superclass method',
-        'Making a method run faster',
-        'Allowing a method to handle errors'
-      ],
-      answer: 'Having multiple methods with same name but different parameters',
-      language: 'Java'
-    },
-    {
-      question: 'Which of these is NOT an access modifier in Java?',
-      options: ['public', 'private', 'protected', 'internal'],
-      answer: 'internal',
-      language: 'Java'
-    },
-    {
-      question: 'What is the purpose of the finally block in try-catch?',
-      options: [
-        'To handle exceptions',
-        'To execute code regardless of exceptions',
-        'To catch specific exceptions',
-        'To define custom exceptions'
-      ],
-      answer: 'To execute code regardless of exceptions',
-      language: 'Java'
-    },
-    {
-      question: 'Which interface provides the compareTo() method?',
-      options: ['Runnable', 'Comparable', 'Comparator', 'Serializable'],
-      answer: 'Comparable',
-      language: 'Java'
-    },
-    {
-      question: 'What is autoboxing in Java?',
-      options: [
-        'Automatic conversion between primitives and wrapper classes',
-        'A way to package Java applications',
-        'A type of collection',
-        'A design pattern'
-      ],
-      answer: 'Automatic conversion between primitives and wrapper classes',
-      language: 'Java'
+      question: 'What is the purpose of the `this` keyword in JavaScript?',
+      options: ['To refer to the current object', 'To declare a variable', 'To define a function', 'To create a new array'],
+      answer: 'To refer to the current object',
+      language: 'JavaScript',
+      difficulty: 'Easy'
     },
 
-    // C++ (15 questions)
+    // Python (Easy, Medium, Hard)
     {
-      question: 'Which operator is used for scope resolution in C++?',
-      options: [':', '::', '.', '->'],
-      answer: '::',
-      language: 'C++'
-    },
-    {
-      question: 'What is the correct way to include the iostream library?',
-      options: [
-        '#include <iostream>',
-        '#include "iostream"',
-        'import iostream;',
-        'using iostream;'
-      ],
-      answer: '#include <iostream>',
-      language: 'C++'
-    },
-    {
-      question: 'Which of these is NOT a C++ access modifier?',
-      options: ['public', 'private', 'protected', 'internal'],
-      answer: 'internal',
-      language: 'C++'
-    },
-    {
-      question: 'What is the output of `cout << 5 / 2;` in C++?',
-      options: ['2', '2.5', '2.0', '3'],
-      answer: '2',
-      language: 'C++'
-    },
-    {
-      question: 'Which keyword is used to allocate memory dynamically in C++?',
-      options: ['malloc', 'alloc', 'new', 'create'],
-      answer: 'new',
-      language: 'C++'
-    },
-    {
-      question: 'What is a reference in C++?',
-      options: [
-        'A pointer that cannot be reassigned',
-        'An alias for an existing variable',
-        'A constant pointer',
-        'A smart pointer'
-      ],
-      answer: 'An alias for an existing variable',
-      language: 'C++'
-    },
-    {
-      question: 'Which of these is NOT a C++ STL container?',
-      options: ['vector', 'array', 'list', 'tree'],
-      answer: 'tree',
-      language: 'C++'
-    },
-    {
-      question: 'What is the purpose of the virtual keyword in C++?',
-      options: [
-        'To enable polymorphism',
-        'To create abstract classes',
-        'To prevent inheritance',
-        'Both A and B'
-      ],
-      answer: 'Both A and B',
-      language: 'C++'
-    },
-    {
-      question: 'Which operator is used for dynamic casting in C++?',
-      options: ['static_cast', 'dynamic_cast', 'reinterpret_cast', 'const_cast'],
-      answer: 'dynamic_cast',
-      language: 'C++'
-    },
-    {
-      question: 'What is a constructor in C++?',
-      options: [
-        'A special method for initializing objects',
-        'A function that creates classes',
-        'A way to construct strings',
-        'A type of operator'
-      ],
-      answer: 'A special method for initializing objects',
-      language: 'C++'
-    },
-    {
-      question: 'Which header file is needed for file I/O in C++?',
-      options: ['<filestream>', '<fstream>', '<file>', '<iostream>'],
-      answer: '<fstream>',
-      language: 'C++'
-    },
-    {
-      question: 'What is the purpose of the const keyword in C++?',
-      options: [
-        'To define constants',
-        'To prevent modification of variables',
-        'To optimize performance',
-        'All of the above'
-      ],
-      answer: 'All of the above',
-      language: 'C++'
-    },
-    {
-      question: 'Which of these is NOT a type of inheritance in C++?',
-      options: ['Single', 'Multiple', 'Multilevel', 'Parallel'],
-      answer: 'Parallel',
-      language: 'C++'
-    },
-    {
-      question: 'What is the size of the int data type in C++ on a 32-bit system?',
-      options: ['2 bytes', '4 bytes', '8 bytes', 'Depends on compiler'],
-      answer: '4 bytes',
-      language: 'C++'
-    },
-    {
-      question: 'Which keyword is used to prevent function overloading?',
-      options: ['final', 'static', 'const', 'private'],
-      answer: 'final',
-      language: 'C++'
-    },
-
-    // TypeScript (10 questions)
-    {
-      question: 'What does TypeScript add to JavaScript?',
-      options: ['Static typing', 'New runtime', 'Different syntax', 'All of the above'],
-      answer: 'Static typing',
-      language: 'TypeScript'
-    },
-    {
-      question: 'Which command compiles TypeScript to JavaScript?',
-      options: ['tsc', 'typescript', 'ts-compile', 'compile-ts'],
-      answer: 'tsc',
-      language: 'TypeScript'
-    },
-    {
-      question: 'What is the TypeScript file extension?',
-      options: ['.js', '.ts', '.typescript', '.tjs'],
-      answer: '.ts',
-      language: 'TypeScript'
-    },
-    {
-      question: 'Which keyword defines a type in TypeScript?',
-      options: ['type', 'interface', 'class', 'All of the above'],
-      answer: 'All of the above',
-      language: 'TypeScript'
-    },
-    {
-      question: 'What is the purpose of generics in TypeScript?',
-      options: [
-        'To create reusable components',
-        'To handle asynchronous operations',
-        'To improve performance',
-        'To enable type checking'
-      ],
-      answer: 'To create reusable components',
-      language: 'TypeScript'
-    },
-    {
-      question: 'Which symbol is used for type assertions in TypeScript?',
-      options: ['<>', 'as', 'Both A and B', 'Neither'],
-      answer: 'Both A and B',
-      language: 'TypeScript'
-    },
-    {
-      question: 'What is an enum in TypeScript?',
-      options: [
-        'A way to define a set of named constants',
-        'A type of loop',
-        'A method for error handling',
-        'A collection type'
-      ],
-      answer: 'A way to define a set of named constants',
-      language: 'TypeScript'
-    },
-    {
-      question: 'Which of these is NOT a TypeScript basic type?',
-      options: ['any', 'unknown', 'never', 'undefined'],
-      answer: 'undefined',
-      language: 'TypeScript'
-    },
-    {
-      question: 'What does the readonly modifier do?',
-      options: [
-        'Makes a property immutable',
-        'Makes a method private',
-        'Prevents inheritance',
-        'Marks a class as abstract'
-      ],
-      answer: 'Makes a property immutable',
-      language: 'TypeScript'
-    },
-    {
-      question: 'Which decorator is used for class components in Angular?',
-      options: ['@Component', '@Decorator', '@Class', '@NgComponent'],
-      answer: '@Component',
-      language: 'TypeScript'
-    },
-
-    // Ruby (10 questions)
-    {
-      question: 'Which keyword defines a method in Ruby?',
-      options: ['def', 'function', 'method', 'fn'],
+      question: 'Which keyword is used to define a function in Python?',
+      options: ['def', 'function', 'func', 'define'],
       answer: 'def',
-      language: 'Ruby'
+      language: 'Python',
+      difficulty: 'Easy'
     },
     {
-      question: 'What is the Ruby package manager called?',
-      options: ['npm', 'gem', 'pip', 'bundler'],
-      answer: 'gem',
-      language: 'Ruby'
+      question: 'What is the output of the following code: print(type(None))?',
+      options: ['<class \'NoneType\'>', '<class \'int\'>', '<class \'str\'>', '<class \'bool\'>'],
+      answer: '<class \'NoneType\'>',
+      language: 'Python',
+      difficulty: 'Medium'
     },
     {
-      question: 'Which symbol is used for comments in Ruby?',
-      options: ['//', '#', '--', '/*'],
-      answer: '#',
-      language: 'Ruby'
+      question: 'How do you create a dictionary in Python?',
+      options: ['{}', '[]', '()', 'dict()'],
+      answer: '{}',
+      language: 'Python',
+      difficulty: 'Hard'
     },
     {
-      question: 'What is the Ruby web framework?',
-      options: ['Django', 'Rails', 'Laravel', 'Express'],
-      answer: 'Rails',
-      language: 'Ruby'
+      question: 'What is the purpose of the `if` statement in Python?',
+      options: ['To define a function', 'To create a loop', 'To make decisions', 'To handle exceptions'],
+      answer: 'To make decisions',
+      language: 'Python',
+      difficulty: 'Easy'
     },
     {
-      question: 'Which operator is used for string interpolation in Ruby?',
-      options: ['+', '#{}', '${}', '&'],
-      answer: '#{}',
-      language: 'Ruby'
+      question: 'What is the output of the following code: print(2 ** 3)?',
+      options: ['6', '8', '9', '10'],
+      answer: '8',
+      language: 'Python',
+      difficulty: 'Medium'
     },
     {
-      question: 'What is the convention for boolean methods in Ruby?',
-      options: ['is_ prefix', '? suffix', '! suffix', 'no special convention'],
-      answer: '? suffix',
-      language: 'Ruby'
+      question: 'What is a list comprehension in Python?',
+      options: ['A way to create lists', 'A way to iterate over lists', 'A way to sort lists', 'A way to filter lists'],
+      answer: 'A way to create lists',
+      language: 'Python',
+      difficulty: 'Hard'
     },
     {
-      question: 'Which of these is NOT a Ruby data type?',
-      options: ['Symbol', 'Hash', 'Array', 'Tuple'],
-      answer: 'Tuple',
-      language: 'Ruby'
+      question: 'What is the purpose of the `import` statement in Python?',
+      options: ['To define a function', 'To create a module', 'To include external code', 'To handle exceptions'],
+      answer: 'To include external code',
+      language: 'Python',
+      difficulty: 'Easy'
     },
     {
-      question: 'What does attr_accessor do in Ruby?',
-      options: [
-        'Creates getter and setter methods',
-        'Makes a variable accessible',
-        'Imports a module',
-        'Handles exceptions'
-      ],
-      answer: 'Creates getter and setter methods',
-      language: 'Ruby'
+      question: 'What is the output of the following code: print(len([1, 2, 3]))?',
+      options: ['1', '2', '3', '4'],
+      answer: '3',
+      language: 'Python',
+      difficulty: 'Medium'
     },
     {
-      question: 'Which loop is NOT native to Ruby?',
-      options: ['for', 'while', 'until', 'do-while'],
-      answer: 'do-while',
-      language: 'Ruby'
+      question: 'What is the purpose of the `try` statement in Python?',
+      options: ['To define a function', 'To create a loop', 'To handle exceptions', 'To make decisions'],
+      answer: 'To handle exceptions',
+      language: 'Python',
+      difficulty: 'Hard'
     },
     {
-      question: 'What is the output of `puts 5 / 2` in Ruby?',
-      options: ['2', '2.5', '2.0', '2.500000'],
-      answer: '2',
-      language: 'Ruby'
+      question: 'What is the output of the following code: print("Hello"[1])?',
+      options: ['H', 'e', 'l', 'o'],
+      answer: 'e',
+      language: 'Python',
+      difficulty: 'Easy'
     },
 
-    // Go (10 questions)
+    // Java (Easy, Medium, Hard)
     {
-      question: 'How do you declare a variable in Go?',
-      options: ['var x int', 'x := 0', 'int x = 0', 'Both A and B'],
-      answer: 'Both A and B',
-      language: 'Go'
+      question: 'Which keyword is used to define a class in Java?',
+      options: ['class', 'interface', 'struct', 'define'],
+      answer: 'class',
+      language: 'Java',
+      difficulty: 'Easy'
     },
     {
-      question: 'What is the entry point of a Go program?',
-      options: ['main()', 'init()', 'start()', 'run()'],
-      answer: 'main()',
-      language: 'Go'
+      question: 'What is the output of the following code: System.out.println(5 / 2)?',
+      options: ['2', '2.5', '3', '2.0'],
+      answer: '2',
+      language: 'Java',
+      difficulty: 'Medium'
     },
     {
-      question: 'Which keyword defines a function in Go?',
-      options: ['func', 'def', 'function', 'fn'],
-      answer: 'func',
-      language: 'Go'
+      question: 'How do you create a String object in Java?',
+      options: ['String str = "Hello";', 'String str = new String("Hello");', 'Both of the above', 'None of the above'],
+      answer: 'Both of the above',
+      language: 'Java',
+      difficulty: 'Hard'
     },
     {
-      question: 'What is a goroutine?',
-      options: [
-        'A lightweight thread',
-        'A type of variable',
-        'A package manager',
-        'A testing framework'
-      ],
-      answer: 'A lightweight thread',
-      language: 'Go'
+      question: 'What is the purpose of the `public` keyword in Java?',
+      options: ['To define a private member', 'To define a protected member', 'To define a public member', 'To define a static member'],
+      answer: 'To define a public member',
+      language: 'Java',
+      difficulty: 'Easy'
     },
     {
-      question: 'Which of these is NOT a Go basic type?',
-      options: ['int', 'float', 'string', 'char'],
-      answer: 'char',
-      language: 'Go'
+      question: 'What is the output of the following code: System.out.println(5 % 2)?',
+      options: ['1', '2', '3', '4'],
+      answer: '1',
+      language: 'Java',
+      difficulty: 'Medium'
     },
     {
-      question: 'What is the zero value for pointers in Go?',
-      options: ['0', 'nil', 'undefined', 'null'],
-      answer: 'nil',
-      language: 'Go'
+      question: 'What is an interface in Java?',
+      options: ['A class that cannot be instantiated', 'A class that can be instantiated', 'A method that can be overridden', 'A method that cannot be overridden'],
+      answer: 'A class that cannot be instantiated',
+      language: 'Java',
+      difficulty: 'Hard'
     },
     {
-      question: 'Which command compiles Go code?',
-      options: ['go build', 'go compile', 'go run', 'go make'],
-      answer: 'go build',
-      language: 'Go'
+      question: 'What is the purpose of the `final` keyword in Java?',
+      options: ['To define a constant', 'To define a variable', 'To define a method', 'To define a class'],
+      answer: 'To define a constant',
+      language: 'Java',
+      difficulty: 'Easy'
     },
     {
-      question: 'What is the purpose of defer in Go?',
-      options: [
-        'To delay function execution',
-        'To handle errors',
-        'To define constants',
-        'To create interfaces'
-      ],
-      answer: 'To delay function execution',
-      language: 'Go'
-    },
-    {
-      question: 'Which of these is NOT a Go collection type?',
-      options: ['array', 'slice', 'map', 'tuple'],
-      answer: 'tuple',
-      language: 'Go'
-    },
-    {
-      question: 'What is the output of `fmt.Println(len("Hello"))` in Go?',
-      options: ['5', '6', '4', 'Error'],
+      question: 'What is the output of the following code: System.out.println(Math.max(5, 2))?',
+      options: ['2', '3', '4', '5'],
       answer: '5',
-      language: 'Go'
+      language: 'Java',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is the purpose of the `throws` keyword in Java?',
+      options: ['To handle exceptions', 'To throw exceptions', 'To catch exceptions', 'To define exceptions'],
+      answer: 'To throw exceptions',
+      language: 'Java',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the output of the following code: System.out.println("Hello".charAt(1))?',
+      options: ['H', 'e', 'l', 'o'],
+      answer: 'e',
+      language: 'Java',
+      difficulty: 'Easy'
     },
 
-    // Rust (10 questions)
+    // C++ (Easy, Medium, Hard)
     {
-      question: 'What is Rust\'s ownership system?',
-      options: ['Memory management model', 'Package management', 'Error handling', 'Concurrency model'],
-      answer: 'Memory management model',
-      language: 'Rust'
+      question: 'Which keyword is used to define a class in C++?',
+      options: ['class', 'struct', 'interface', 'define'],
+      answer: 'class',
+      language: 'C++',
+      difficulty: 'Easy'
     },
     {
-      question: 'Which keyword defines a variable in Rust?',
-      options: ['var', 'let', 'const', 'def'],
-      answer: 'let',
-      language: 'Rust'
-    },
-    {
-      question: 'What is the Rust package manager called?',
-      options: ['npm', 'cargo', 'pip', 'bundler'],
-      answer: 'cargo',
-      language: 'Rust'
-    },
-    {
-      question: 'Which symbol is used for pattern matching in Rust?',
-      options: ['=>', '->', 'match', '|'],
-      answer: '=>',
-      language: 'Rust'
-    },
-    {
-      question: 'What is the purpose of the Result type in Rust?',
-      options: [
-        'Error handling',
-        'Memory management',
-        'Concurrency',
-        'Type conversion'
-      ],
-      answer: 'Error handling',
-      language: 'Rust'
-    },
-    {
-      question: 'Which of these is NOT a Rust primitive type?',
-      options: ['i32', 'f64', 'str', 'array'],
-      answer: 'array',
-      language: 'Rust'
-    },
-    {
-      question: 'What does the mut keyword do?',
-      options: [
-        'Makes a variable mutable',
-        'Creates a mutex',
-        'Defines a module',
-        'Imports a crate'
-      ],
-      answer: 'Makes a variable mutable',
-      language: 'Rust'
-    },
-    {
-      question: 'Which trait is used for displaying values in Rust?',
-      options: ['Display', 'Show', 'Debug', 'ToString'],
-      answer: 'Display',
-      language: 'Rust'
-    },
-    {
-      question: 'What is the purpose of the borrow checker?',
-      options: [
-        'To enforce ownership rules',
-        'To manage packages',
-        'To optimize performance',
-        'To handle errors'
-      ],
-      answer: 'To enforce ownership rules',
-      language: 'Rust'
-    },
-    {
-      question: 'Which macro is used for printing in Rust?',
-      options: ['print!', 'println!', 'echo!', 'Both A and B'],
-      answer: 'println!',
-      language: 'Rust'
-    },
-
-    // PHP (10 questions)
-    {
-      question: 'What does PHP stand for?',
-      options: ['Personal Home Page', 'PHP Hypertext Processor', 'Preprocessed Hypertext', 'Both A and B'],
-      answer: 'Both A and B',
-      language: 'PHP'
-    },
-    {
-      question: 'Which symbol starts all PHP variables?',
-      options: ['@', '#', '$', '&'],
-      answer: '$',
-      language: 'PHP'
-    },
-    {
-      question: 'What is the PHP framework?',
-      options: ['Django', 'Laravel', 'Rails', 'Express'],
-      answer: 'Laravel',
-      language: 'PHP'
-    },
-    {
-      question: 'Which function outputs content in PHP?',
-      options: ['print()', 'echo()', 'output()', 'Both A and B'],
-      answer: 'Both A and B',
-      language: 'PHP'
-    },
-    {
-      question: 'What is the concatenation operator in PHP?',
-      options: ['+', '.', '&', '||'],
-      answer: '.',
-      language: 'PHP'
-    },
-    {
-      question: 'Which superglobal holds POST data?',
-      options: ['$_GET', '$_POST', '$_REQUEST', '$_INPUT'],
-      answer: '$_POST',
-      language: 'PHP'
-    },
-    {
-      question: 'What does PDO stand for in PHP?',
-      options: [
-        'PHP Data Objects',
-        'Personal Database Options',
-        'Prepared Data Operations',
-        'Public Data Organization'
-      ],
-      answer: 'PHP Data Objects',
-      language: 'PHP'
-    },
-    {
-      question: 'Which operator is used for equality in PHP?',
-      options: ['=', '==', '===', 'Both B and C'],
-      answer: 'Both B and C',
-      language: 'PHP'
-    },
-    {
-      question: 'What is the correct way to include a file in PHP?',
-      options: ['include "file.php";', 'require "file.php";', 'import "file.php";', 'Both A and B'],
-      answer: 'Both A and B',
-      language: 'PHP'
-    },
-    {
-      question: 'Which function starts a session in PHP?',
-      options: ['session()', 'session_start()', 'start_session()', 'init_session()'],
-      answer: 'session_start()',
-      language: 'PHP'
-    },
-
-    // Swift (10 questions)
-    {
-      question: 'Which company developed Swift?',
-      options: ['Apple', 'Google', 'Microsoft', 'Facebook'],
-      answer: 'Apple',
-      language: 'Swift'
-    },
-    {
-      question: 'What is the Swift REPL?',
-      options: [
-        'Read-Eval-Print Loop',
-        'Runtime Environment Programming Language',
-        'Rapid Execution Programming Logic',
-        'None of the above'
-      ],
-      answer: 'Read-Eval-Print Loop',
-      language: 'Swift'
-    },
-    {
-      question: 'Which keyword declares a constant in Swift?',
-      options: ['let', 'var', 'const', 'constant'],
-      answer: 'let',
-      language: 'Swift'
-    },
-    {
-      question: 'What is the nil-coalescing operator in Swift?',
-      options: ['??', '?:', '!', '?'],
-      answer: '??',
-      language: 'Swift'
-    },
-    {
-      question: 'Which framework is used for UI in Swift?',
-      options: ['UIKit', 'AppKit', 'SwiftUI', 'All of the above'],
-      answer: 'All of the above',
-      language: 'Swift'
-    },
-    {
-      question: 'What is the purpose of guard in Swift?',
-      options: [
-        'Early exit from a function',
-        'Error handling',
-        'Memory management',
-        'Type checking'
-      ],
-      answer: 'Early exit from a function',
-      language: 'Swift'
-    },
-    {
-      question: 'Which symbol is used for type casting in Swift?',
-      options: ['as', 'is', 'cast', 'Both A and B'],
-      answer: 'Both A and B',
-      language: 'Swift'
-    },
-    {
-      question: 'What is an optional in Swift?',
-      options: [
-        'A type that can hold a value or nil',
-        'A function parameter',
-        'A type of loop',
-        'A protocol'
-      ],
-      answer: 'A type that can hold a value or nil',
-      language: 'Swift'
-    },
-    {
-      question: 'Which keyword defines a protocol in Swift?',
-      options: ['protocol', 'interface', 'contract', 'proposal'],
-      answer: 'protocol',
-      language: 'Swift'
-    },
-    {
-      question: 'What is the output of `print(5 / 2)` in Swift?',
-      options: ['2', '2.5', '2.0', '2.500000'],
+      question: 'What is the output of the following code: std::cout << 5 / 2;?',
+      options: ['2', '2.5', '3', '2.0'],
       answer: '2',
-      language: 'Swift'
+      language: 'C++',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a string object in C++?',
+      options: ['std::string str = "Hello";', 'string str = "Hello";', 'Both of the above', 'None of the above'],
+      answer: 'Both of the above',
+      language: 'C++',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `public` keyword in C++?',
+      options: ['To define a private member', 'To define a protected member', 'To define a public member', 'To define a static member'],
+      answer: 'To define a public member',
+      language: 'C++',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: std::cout << 5 % 2;?',
+      options: ['1', '2', '3', '4'],
+      answer: '1',
+      language: 'C++',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is a pointer in C++?',
+      options: ['A variable that stores the address of another variable', 'A variable that stores a value', 'A function that returns a value', 'A class that defines a data type'],
+      answer: 'A variable that stores the address of another variable',
+      language: 'C++',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `const` keyword in C++?',
+      options: ['To define a constant', 'To define a variable', 'To define a method', 'To define a class'],
+      answer: 'To define a constant',
+      language: 'C++',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: std::cout << std::max(5, 2);?',
+      options: ['2', '3', '4', '5'],
+      answer: '5',
+      language: 'C++',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is the purpose of the `try` keyword in C++?',
+      options: ['To handle exceptions', 'To throw exceptions', 'To catch exceptions', 'To define exceptions'],
+      answer: 'To handle exceptions',
+      language: 'C++',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the output of the following code: std::cout << "Hello".at(1);?',
+      options: ['H', 'e', 'l', 'o'],
+      answer: 'e',
+      language: 'C++',
+      difficulty: 'Easy'
+    },
+
+    // TypeScript (Easy, Medium, Hard)
+    {
+      question: 'Which keyword is used to define a variable in TypeScript?',
+      options: ['var', 'let', 'const', 'All of the above'],
+      answer: 'All of the above',
+      language: 'TypeScript',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: console.log(typeof null)?',
+      options: ['object', 'null', 'undefined', 'string'],
+      answer: 'object',
+      language: 'TypeScript',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you declare a function in TypeScript?',
+      options: ['function myFunction() {}', 'def myFunction() {}', 'func myFunction() {}', 'function = myFunction() {}'],
+      answer: 'function myFunction() {}',
+      language: 'TypeScript',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `interface` keyword in TypeScript?',
+      options: ['To define a class', 'To define a type', 'To define a variable', 'To define a function'],
+      answer: 'To define a type',
+      language: 'TypeScript',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: console.log(typeof []);?',
+      options: ['object', 'array', 'undefined', 'string'],
+      answer: 'object',
+      language: 'TypeScript',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is a generic in TypeScript?',
+      options: ['A way to create reusable components', 'A way to define types', 'A way to handle exceptions', 'A way to create classes'],
+      answer: 'A way to define types',
+      language: 'TypeScript',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `any` type in TypeScript?',
+      options: ['To define a variable that can hold any value', 'To define a variable that can only hold numbers', 'To define a variable that can only hold strings', 'To define a variable that can only hold booleans'],
+      answer: 'To define a variable that can hold any value',
+      language: 'TypeScript',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: console.log(typeof {});?',
+      options: ['object', 'undefined', 'string', 'number'],
+      answer: 'object',
+      language: 'TypeScript',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is the purpose of the `readonly` keyword in TypeScript?',
+      options: ['To define a constant', 'To define a variable', 'To define a method', 'To define a class'],
+      answer: 'To define a constant',
+      language: 'TypeScript',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the output of the following code: console.log(typeof function(){});?',
+      options: ['function', 'object', 'undefined', 'string'],
+      answer: 'function',
+      language: 'TypeScript',
+      difficulty: 'Easy'
+    },
+
+    // Ruby (Easy, Medium, Hard)
+    {
+      question: 'Which keyword is used to define a method in Ruby?',
+      options: ['def', 'function', 'method', 'define'],
+      answer: 'def',
+      language: 'Ruby',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: puts nil.class?',
+      options: ['NilClass', 'Object', 'String', 'Integer'],
+      answer: 'NilClass',
+      language: 'Ruby',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a hash in Ruby?',
+      options: ['{}', '[]', '()', 'hash()'],
+      answer: '{}',
+      language: 'Ruby',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `if` statement in Ruby?',
+      options: ['To define a method', 'To create a loop', 'To make decisions', 'To handle exceptions'],
+      answer: 'To make decisions',
+      language: 'Ruby',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: puts 2 ** 3?',
+      options: ['6', '8', '9', '10'],
+      answer: '8',
+      language: 'Ruby',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is a block in Ruby?',
+      options: ['A way to group statements', 'A way to define a method', 'A way to handle exceptions', 'A way to create a loop'],
+      answer: 'A way to group statements',
+      language: 'Ruby',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `require` statement in Ruby?',
+      options: ['To include external code', 'To define a method', 'To create a loop', 'To handle exceptions'],
+      answer: 'To include external code',
+      language: 'Ruby',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: puts [1, 2, 3].length?',
+      options: ['1', '2', '3', '4'],
+      answer: '3',
+      language: 'Ruby',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is the purpose of the `rescue` statement in Ruby?',
+      options: ['To define a method', 'To create a loop', 'To handle exceptions', 'To make decisions'],
+      answer: 'To handle exceptions',
+      language: 'Ruby',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the output of the following code: puts "Hello"[1]?',
+      options: ['H', 'e', 'l', 'o'],
+      answer: 'e',
+      language: 'Ruby',
+      difficulty: 'Easy'
+    },
+
+    // Go (Easy, Medium, Hard)
+    {
+      question: 'Which keyword is used to define a function in Go?',
+      options: ['func', 'function', 'def', 'define'],
+      answer: 'func',
+      language: 'Go',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: fmt.Println(5 / 2)?',
+      options: ['2', '2.5', '3', '2.0'],
+      answer: '2',
+      language: 'Go',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a map in Go?',
+      options: ['var map map[string]int', 'map := make(map[string]int)', 'Both of the above', 'None of the above'],
+      answer: 'Both of the above',
+      language: 'Go',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `package` keyword in Go?',
+      options: ['To define a module', 'To define a function', 'To define a variable', 'To define a constant'],
+      answer: 'To define a module',
+      language: 'Go',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: fmt.Println(5 % 2)?',
+      options: ['1', '2', '3', '4'],
+      answer: '1',
+      language: 'Go',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is a goroutine in Go?',
+      options: ['A lightweight thread managed by the Go runtime', 'A function that returns a value', 'A way to handle exceptions', 'A way to create a loop'],
+      answer: 'A lightweight thread managed by the Go runtime',
+      language: 'Go',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `const` keyword in Go?',
+      options: ['To define a constant', 'To define a variable', 'To define a function', 'To define a package'],
+      answer: 'To define a constant',
+      language: 'Go',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: fmt.Println(math.Max(5, 2))?',
+      options: ['2', '3', '4', '5'],
+      answer: '5',
+      language: 'Go',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is the purpose of the `defer` keyword in Go?',
+      options: ['To handle exceptions', 'To delay the execution of a function until the surrounding function returns', 'To define a constant', 'To define a variable'],
+      answer: 'To delay the execution of a function until the surrounding function returns',
+      language: 'Go',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the output of the following code: fmt.Println("Hello"[1])?',
+      options: ['H', 'e', 'l', 'o'],
+      answer: 'e',
+      language: 'Go',
+      difficulty: 'Easy'
+    },
+
+    // Rust (Easy, Medium, Hard)
+    {
+      question: 'Which keyword is used to define a function in Rust?',
+      options: ['fn', 'function', 'def', 'define'],
+      answer: 'fn',
+      language: 'Rust',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: println!("{}", 5 / 2)?',
+      options: ['2', '2.5', '3', '2.0'],
+      answer: '2',
+      language: 'Rust',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a hash map in Rust?',
+      options: ['let mut map = HashMap::new();', 'let map: HashMap<String, i32> = HashMap::new();', 'Both of the above', 'None of the above'],
+      answer: 'Both of the above',
+      language: 'Rust',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `let` keyword in Rust?',
+      options: ['To define a variable', 'To define a constant', 'To define a function', 'To define a module'],
+      answer: 'To define a variable',
+      language: 'Rust',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: println!("{}", 5 % 2)?',
+      options: ['1', '2', '3', '4'],
+      answer: '1',
+      language: 'Rust',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is a trait in Rust?',
+      options: ['A way to define shared behavior', 'A way to define a variable', 'A way to handle exceptions', 'A way to create a loop'],
+      answer: 'A way to define shared behavior',
+      language: 'Rust',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `const` keyword in Rust?',
+      options: ['To define a constant', 'To define a variable', 'To define a function', 'To define a module'],
+      answer: 'To define a constant',
+      language: 'Rust',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: println!("{}", std::cmp::max(5, 2))?',
+      options: ['2', '3', '4', '5'],
+      answer: '5',
+      language: 'Rust',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is the purpose of the `match` keyword in Rust?',
+      options: ['To handle exceptions', 'To compare a value against a series of patterns', 'To define a constant', 'To define a variable'],
+      answer: 'To compare a value against a series of patterns',
+      language: 'Rust',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the output of the following code: println!("{}", "Hello".chars().nth(1).unwrap())?',
+      options: ['H', 'e', 'l', 'o'],
+      answer: 'e',
+      language: 'Rust',
+      difficulty: 'Easy'
+    },
+
+    // PHP (Easy, Medium, Hard)
+    {
+      question: 'Which keyword is used to define a function in PHP?',
+      options: ['function', 'def', 'func', 'define'],
+      answer: 'function',
+      language: 'PHP',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: echo gettype(null);?',
+      options: ['NULL', 'object', 'string', 'integer'],
+      answer: 'NULL',
+      language: 'PHP',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create an associative array in PHP?',
+      options: ['array("key" => "value")', '["key" => "value"]', 'Both of the above', 'None of the above'],
+      answer: 'Both of the above',
+      language: 'PHP',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `echo` statement in PHP?',
+      options: ['To output one or more strings', 'To define a function', 'To create a loop', 'To handle exceptions'],
+      answer: 'To output one or more strings',
+      language: 'PHP',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: echo 5 % 2;?',
+      options: ['1', '2', '3', '4'],
+      answer: '1',
+      language: 'PHP',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is a class in PHP?',
+      options: ['A blueprint for creating objects', 'A way to define a variable', 'A way to handle exceptions', 'A way to create a loop'],
+      answer: 'A blueprint for creating objects',
+      language: 'PHP',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `const` keyword in PHP?',
+      options: ['To define a constant', 'To define a variable', 'To define a function', 'To define a class'],
+      answer: 'To define a constant',
+      language: 'PHP',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: echo max(5, 2);?',
+      options: ['2', '3', '4', '5'],
+      answer: '5',
+      language: 'PHP',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is the purpose of the `try` keyword in PHP?',
+      options: ['To handle exceptions', 'To throw exceptions', 'To catch exceptions', 'To define exceptions'],
+      answer: 'To handle exceptions',
+      language: 'PHP',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the output of the following code: echo "Hello"[1];?',
+      options: ['H', 'e', 'l', 'o'],
+      answer: 'e',
+      language: 'PHP',
+      difficulty: 'Easy'
+    },
+
+    // Swift (Easy, Medium, Hard)
+    {
+      question: 'Which keyword is used to define a function in Swift?',
+      options: ['func', 'function', 'def', 'define'],
+      answer: 'func',
+      language: 'Swift',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: print(5 / 2)?',
+      options: ['2', '2.5', '3', '2.0'],
+      answer: '2',
+      language: 'Swift',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a dictionary in Swift?',
+      options: ['var dict = ["key": "value"]', 'let dict: [String: String] = ["key": "value"]', 'Both of the above', 'None of the above'],
+      answer: 'Both of the above',
+      language: 'Swift',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `let` keyword in Swift?',
+      options: ['To define a constant', 'To define a variable', 'To define a function', 'To define a class'],
+      answer: 'To define a constant',
+      language: 'Swift',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: print(5 % 2)?',
+      options: ['1', '2', '3', '4'],
+      answer: '1',
+      language: 'Swift',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is a closure in Swift?',
+      options: ['A self-contained block of functionality that can be passed around and used in your code', 'A way to define a variable', 'A way to handle exceptions', 'A way to create a loop'],
+      answer: 'A self-contained block of functionality that can be passed around and used in your code',
+      language: 'Swift',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `var` keyword in Swift?',
+      options: ['To define a variable', 'To define a constant', 'To define a function', 'To define a class'],
+      answer: 'To define a variable',
+      language: 'Swift',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the output of the following code: print(max(5, 2))?',
+      options: ['2', '3', '4', '5'],
+      answer: '5',
+      language: 'Swift',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is the purpose of the `guard` keyword in Swift?',
+      options: ['To handle exceptions', 'To perform early exits', 'To define a constant', 'To define a variable'],
+      answer: 'To perform early exits',
+      language: 'Swift',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the output of the following code: print("Hello"[1])?',
+      options: ['H', 'e', 'l', 'o'],
+      answer: 'e',
+      language: 'Swift',
+      difficulty: 'Easy'
+    },
+
+    // HTML (Easy, Medium, Hard)
+    {
+      question: 'Which tag is used to define a hyperlink in HTML?',
+      options: ['<a>', '<link>', '<href>', '<url>'],
+      answer: '<a>',
+      language: 'HTML',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the correct way to create a comment in HTML?',
+      options: ['<!-- Comment -->', '<comment> Comment </comment>', '<!-- Comment --!>', '<! Comment !>'],
+      answer: '<!-- Comment -->',
+      language: 'HTML',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'Which attribute is used to specify an alternate text for an image in HTML?',
+      options: ['alt', 'title', 'src', 'href'],
+      answer: 'alt',
+      language: 'HTML',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `<div>` tag in HTML?',
+      options: ['To define a division or section in an HTML document', 'To create a hyperlink', 'To define a list', 'To create a table'],
+      answer: 'To define a division or section in an HTML document',
+      language: 'HTML',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the correct way to create an ordered list in HTML?',
+      options: ['<ol>', '<ul>', '<li>', '<dl>'],
+      answer: '<ol>',
+      language: 'HTML',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is the purpose of the `<form>` tag in HTML?',
+      options: ['To create a form for user input', 'To define a division or section in an HTML document', 'To create a hyperlink', 'To define a list'],
+      answer: 'To create a form for user input',
+      language: 'HTML',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `<table>` tag in HTML?',
+      options: ['To define a table', 'To create a hyperlink', 'To define a list', 'To create a form for user input'],
+      answer: 'To define a table',
+      language: 'HTML',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the correct way to create a table row in HTML?',
+      options: ['<tr>', '<td>', '<th>', '<table>'],
+      answer: '<tr>',
+      language: 'HTML',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is the purpose of the `<button>` tag in HTML?',
+      options: ['To create a clickable button', 'To define a division or section in an HTML document', 'To create a hyperlink', 'To define a list'],
+      answer: 'To create a clickable button',
+      language: 'HTML',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the correct way to create a table header in HTML?',
+      options: ['<th>', '<td>', '<tr>', '<table>'],
+      answer: '<th>',
+      language: 'HTML',
+      difficulty: 'Easy'
+    },
+
+    // CSS (Easy, Medium, Hard)
+    {
+      question: 'Which property is used to change the background color of an element in CSS?',
+      options: ['background-color', 'color', 'bg-color', 'bgcolor'],
+      answer: 'background-color',
+      language: 'CSS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the correct syntax to select an element with the class "example" in CSS?',
+      options: ['.example', '#example', 'example', 'class.example'],
+      answer: '.example',
+      language: 'CSS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'Which property is used to control the spacing between lines of text in CSS?',
+      options: ['line-height', 'text-spacing', 'letter-spacing', 'word-spacing'],
+      answer: 'line-height',
+      language: 'CSS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `color` property in CSS?',
+      options: ['To change the background color of an element', 'To change the text color of an element', 'To control the spacing between lines of text', 'To define the font size of an element'],
+      answer: 'To change the text color of an element',
+      language: 'CSS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the correct syntax to select an element with the id "example" in CSS?',
+      options: ['.example', '#example', 'example', 'id.example'],
+      answer: '#example',
+      language: 'CSS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'Which property is used to define the font size of an element in CSS?',
+      options: ['font-size', 'text-size', 'font-weight', 'text-weight'],
+      answer: 'font-size',
+      language: 'CSS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `margin` property in CSS?',
+      options: ['To control the spacing outside of an element', 'To control the spacing inside of an element', 'To change the background color of an element', 'To change the text color of an element'],
+      answer: 'To control the spacing outside of an element',
+      language: 'CSS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the correct syntax to select all elements of a specific type in CSS?',
+      options: ['element', '.element', '#element', 'type.element'],
+      answer: 'element',
+      language: 'CSS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'Which property is used to define the border of an element in CSS?',
+      options: ['border', 'border-style', 'border-width', 'border-color'],
+      answer: 'border',
+      language: 'CSS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `padding` property in CSS?',
+      options: ['To control the spacing inside of an element', 'To control the spacing outside of an element', 'To change the background color of an element', 'To change the text color of an element'],
+      answer: 'To control the spacing inside of an element',
+      language: 'CSS',
+      difficulty: 'Easy'
+    },
+
+    // ReactJS (Easy, Medium, Hard)
+    {
+      question: 'Which method is used to update the state in a React component?',
+      options: ['setState', 'updateState', 'changeState', 'modifyState'],
+      answer: 'setState',
+      language: 'ReactJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `useEffect` hook in React?',
+      options: ['To perform side effects in function components', 'To manage state in function components', 'To create a new component', 'To render a component'],
+      answer: 'To perform side effects in function components',
+      language: 'ReactJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you pass data from a parent component to a child component in React?',
+      options: ['Using props', 'Using state', 'Using context', 'Using refs'],
+      answer: 'Using props',
+      language: 'ReactJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `useState` hook in React?',
+      options: ['To manage state in function components', 'To perform side effects in function components', 'To create a new component', 'To render a component'],
+      answer: 'To manage state in function components',
+      language: 'ReactJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `useContext` hook in React?',
+      options: ['To manage state in function components', 'To perform side effects in function components', 'To access the context in function components', 'To create a new component'],
+      answer: 'To access the context in function components',
+      language: 'ReactJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a custom hook in React?',
+      options: ['By defining a function that uses other hooks', 'By defining a class that extends React.Component', 'By using the `createHook` function', 'By using the `useHook` function'],
+      answer: 'By defining a function that uses other hooks',
+      language: 'ReactJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `useReducer` hook in React?',
+      options: ['To manage state in function components', 'To perform side effects in function components', 'To create a new component', 'To handle complex state logic in function components'],
+      answer: 'To handle complex state logic in function components',
+      language: 'ReactJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `useMemo` hook in React?',
+      options: ['To memoize a value in function components', 'To perform side effects in function components', 'To manage state in function components', 'To create a new component'],
+      answer: 'To memoize a value in function components',
+      language: 'ReactJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a ref in React?',
+      options: ['Using the `useRef` hook', 'Using the `createRef` function', 'Using the `useState` hook', 'Using the `useEffect` hook'],
+      answer: 'Using the `useRef` hook',
+      language: 'ReactJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `useCallback` hook in React?',
+      options: ['To memoize a callback function in function components', 'To perform side effects in function components', 'To manage state in function components', 'To create a new component'],
+      answer: 'To memoize a callback function in function components',
+      language: 'ReactJS',
+      difficulty: 'Easy'
+    },
+
+    // NodeJS (Easy, Medium, Hard)
+    {
+      question: 'Which method is used to read a file in NodeJS?',
+      options: ['fs.readFile', 'fs.read', 'fs.open', 'fs.readSync'],
+      answer: 'fs.readFile',
+      language: 'NodeJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `express` module in NodeJS?',
+      options: ['To create a web server', 'To manage files', 'To handle databases', 'To perform asynchronous operations'],
+      answer: 'To create a web server',
+      language: 'NodeJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you install a package in NodeJS?',
+      options: ['npm install', 'npm get', 'npm add', 'npm import'],
+      answer: 'npm install',
+      language: 'NodeJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `require` function in NodeJS?',
+      options: ['To include external modules', 'To create a web server', 'To manage files', 'To handle databases'],
+      answer: 'To include external modules',
+      language: 'NodeJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `http` module in NodeJS?',
+      options: ['To create an HTTP server', 'To manage files', 'To handle databases', 'To perform asynchronous operations'],
+      answer: 'To create an HTTP server',
+      language: 'NodeJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a new route in ExpressJS?',
+      options: ['app.get', 'app.post', 'app.route', 'app.create'],
+      answer: 'app.get',
+      language: 'NodeJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `path` module in NodeJS?',
+      options: ['To handle and transform file paths', 'To create a web server', 'To manage files', 'To handle databases'],
+      answer: 'To handle and transform file paths',
+      language: 'NodeJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `fs` module in NodeJS?',
+      options: ['To interact with the file system', 'To create a web server', 'To manage files', 'To handle databases'],
+      answer: 'To interact with the file system',
+      language: 'NodeJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you start an ExpressJS server?',
+      options: ['app.listen', 'app.start', 'app.run', 'app.serve'],
+      answer: 'app.listen',
+      language: 'NodeJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `process` object in NodeJS?',
+      options: ['To provide information about the Node.js process', 'To create a web server', 'To manage files', 'To handle databases'],
+      answer: 'To provide information about the Node.js process',
+      language: 'NodeJS',
+      difficulty: 'Easy'
+    },
+
+    // ExpressJS (Easy, Medium, Hard)
+    {
+      question: 'Which method is used to create a new route in ExpressJS?',
+      options: ['app.get', 'app.post', 'app.route', 'app.create'],
+      answer: 'app.get',
+      language: 'ExpressJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of middleware in ExpressJS?',
+      options: ['To handle requests', 'To manage routes', 'To process data', 'To perform side effects'],
+      answer: 'To handle requests',
+      language: 'ExpressJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you start an ExpressJS server?',
+      options: ['app.listen', 'app.start', 'app.run', 'app.serve'],
+      answer: 'app.listen',
+      language: 'ExpressJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `express` module in ExpressJS?',
+      options: ['To create a web server', 'To manage files', 'To handle databases', 'To perform asynchronous operations'],
+      answer: 'To create a web server',
+      language: 'ExpressJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'How do you install ExpressJS?',
+      options: ['npm install express', 'npm get express', 'npm add express', 'npm import express'],
+      answer: 'npm install express',
+      language: 'ExpressJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is the purpose of the `req` object in ExpressJS?',
+      options: ['To represent the HTTP request', 'To represent the HTTP response', 'To manage routes', 'To process data'],
+      answer: 'To represent the HTTP request',
+      language: 'ExpressJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `res` object in ExpressJS?',
+      options: ['To represent the HTTP response', 'To represent the HTTP request', 'To manage routes', 'To process data'],
+      answer: 'To represent the HTTP response',
+      language: 'ExpressJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'How do you define a route parameter in ExpressJS?',
+      options: ['Using a colon (:)', 'Using a question mark (?)', 'Using a hash (#)', 'Using an asterisk (*)'],
+      answer: 'Using a colon (:)',
+      language: 'ExpressJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'What is the purpose of the `next` function in ExpressJS?',
+      options: ['To pass control to the next middleware function', 'To handle requests', 'To manage routes', 'To process data'],
+      answer: 'To pass control to the next middleware function',
+      language: 'ExpressJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'How do you set the status code of a response in ExpressJS?',
+      options: ['res.status(code)', 'res.setStatus(code)', 'res.code(code)', 'res.sendStatus(code)'],
+      answer: 'res.status(code)',
+      language: 'ExpressJS',
+      difficulty: 'Easy'
+    },
+
+    // Angular (Easy, Medium, Hard)
+    {
+      question: 'Which decorator is used to define a component in Angular?',
+      options: ['@Component', '@Directive', '@Module', '@Injectable'],
+      answer: '@Component',
+      language: 'Angular',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `ngIf` directive in Angular?',
+      options: ['To conditionally display an element', 'To loop over a list of items', 'To bind data to an element', 'To handle events'],
+      answer: 'To conditionally display an element',
+      language: 'Angular',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a service in Angular?',
+      options: ['Using the `@Injectable` decorator', 'Using the `@Component` decorator', 'Using the `@Directive` decorator', 'Using the `@Module` decorator'],
+      answer: 'Using the `@Injectable` decorator',
+      language: 'Angular',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `ngFor` directive in Angular?',
+      options: ['To loop over a list of items', 'To conditionally display an element', 'To bind data to an element', 'To handle events'],
+      answer: 'To loop over a list of items',
+      language: 'Angular',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `ngModel` directive in Angular?',
+      options: ['To bind data to an element', 'To conditionally display an element', 'To loop over a list of items', 'To handle events'],
+      answer: 'To bind data to an element',
+      language: 'Angular',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you define a module in Angular?',
+      options: ['Using the `@NgModule` decorator', 'Using the `@Component` decorator', 'Using the `@Directive` decorator', 'Using the `@Injectable` decorator'],
+      answer: 'Using the `@NgModule` decorator',
+      language: 'Angular',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `ngClass` directive in Angular?',
+      options: ['To add and remove CSS classes', 'To conditionally display an element', 'To loop over a list of items', 'To bind data to an element'],
+      answer: 'To add and remove CSS classes',
+      language: 'Angular',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `ngStyle` directive in Angular?',
+      options: ['To add and remove inline styles', 'To conditionally display an element', 'To loop over a list of items', 'To bind data to an element'],
+      answer: 'To add and remove inline styles',
+      language: 'Angular',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a custom directive in Angular?',
+      options: ['Using the `@Directive` decorator', 'Using the `@Component` decorator', 'Using the `@Injectable` decorator', 'Using the `@Module` decorator'],
+      answer: 'Using the `@Directive` decorator',
+      language: 'Angular',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `ngTemplateOutlet` directive in Angular?',
+      options: ['To insert an embedded view from a template', 'To conditionally display an element', 'To loop over a list of items', 'To bind data to an element'],
+      answer: 'To insert an embedded view from a template',
+      language: 'Angular',
+      difficulty: 'Easy'
+    },
+
+    // NextJS (Easy, Medium, Hard)
+    {
+      question: 'Which file is used to define the main entry point of a NextJS application?',
+      options: ['pages/_app.js', 'pages/index.js', 'next.config.js', 'public/index.html'],
+      answer: 'pages/_app.js',
+      language: 'NextJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `getStaticProps` function in NextJS?',
+      options: ['To fetch data at build time', 'To fetch data at request time', 'To handle client-side navigation', 'To manage state'],
+      answer: 'To fetch data at build time',
+      language: 'NextJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a dynamic route in NextJS?',
+      options: ['Using square brackets in the file name', 'Using curly braces in the file name', 'Using parentheses in the file name', 'Using angle brackets in the file name'],
+      answer: 'Using square brackets in the file name',
+      language: 'NextJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `getServerSideProps` function in NextJS?',
+      options: ['To fetch data at request time', 'To fetch data at build time', 'To handle client-side navigation', 'To manage state'],
+      answer: 'To fetch data at request time',
+      language: 'NextJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `useRouter` hook in NextJS?',
+      options: ['To handle client-side navigation', 'To fetch data at build time', 'To fetch data at request time', 'To manage state'],
+      answer: 'To handle client-side navigation',
+      language: 'NextJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a custom `_document.js` file in NextJS?',
+      options: ['By creating a file in the `pages` directory', 'By creating a file in the `public` directory', 'By creating a file in the `components` directory', 'By creating a file in the `styles` directory'],
+      answer: 'By creating a file in the `pages` directory',
+      language: 'NextJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `next.config.js` file in NextJS?',
+      options: ['To configure the NextJS application', 'To fetch data at build time', 'To fetch data at request time', 'To handle client-side navigation'],
+      answer: 'To configure the NextJS application',
+      language: 'NextJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `getInitialProps` method in NextJS?',
+      options: ['To fetch data on the server side', 'To fetch data on the client side', 'To handle client-side navigation', 'To manage state'],
+      answer: 'To fetch data on the server side',
+      language: 'NextJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a custom `_app.js` file in NextJS?',
+      options: ['By creating a file in the `pages` directory', 'By creating a file in the `public` directory', 'By creating a file in the `components` directory', 'By creating a file in the `styles` directory'],
+      answer: 'By creating a file in the `pages` directory',
+      language: 'NextJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `Link` component in NextJS?',
+      options: ['To handle client-side navigation', 'To fetch data at build time', 'To fetch data at request time', 'To manage state'],
+      answer: 'To handle client-side navigation',
+      language: 'NextJS',
+      difficulty: 'Easy'
+    },
+
+    // VueJS (Easy, Medium, Hard)
+    {
+      question: 'Which directive is used to bind data to an element in VueJS?',
+      options: ['v-bind', 'v-model', 'v-on', 'v-if'],
+      answer: 'v-bind',
+      language: 'VueJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `computed` property in VueJS?',
+      options: ['To define reactive data', 'To define methods', 'To define computed properties', 'To handle events'],
+      answer: 'To define computed properties',
+      language: 'VueJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a VueJS component?',
+      options: ['Using the `Vue.component` method', 'Using the `Vue.extend` method', 'Using the `Vue.create` method', 'Using the `Vue.define` method'],
+      answer: 'Using the `Vue.component` method',
+      language: 'VueJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `v-model` directive in VueJS?',
+      options: ['To create two-way data bindings', 'To bind data to an element', 'To handle events', 'To define computed properties'],
+      answer: 'To create two-way data bindings',
+      language: 'VueJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `v-if` directive in VueJS?',
+      options: ['To conditionally render an element', 'To bind data to an element', 'To handle events', 'To define computed properties'],
+      answer: 'To conditionally render an element',
+      language: 'VueJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you define a method in a VueJS component?',
+      options: ['Using the `methods` property', 'Using the `computed` property', 'Using the `data` property', 'Using the `props` property'],
+      answer: 'Using the `methods` property',
+      language: 'VueJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `v-for` directive in VueJS?',
+      options: ['To loop over a list of items', 'To conditionally render an element', 'To bind data to an element', 'To handle events'],
+      answer: 'To loop over a list of items',
+      language: 'VueJS',
+      difficulty: 'Easy'
+    },
+    {
+      question: 'What is the purpose of the `v-on` directive in VueJS?',
+      options: ['To handle events', 'To bind data to an element', 'To conditionally render an element', 'To define computed properties'],
+      answer: 'To handle events',
+      language: 'VueJS',
+      difficulty: 'Medium'
+    },
+    {
+      question: 'How do you create a custom directive in VueJS?',
+      options: ['Using the `Vue.directive` method', 'Using the `Vue.component` method', 'Using the `Vue.extend` method', 'Using the `Vue.create` method'],
+      answer: 'Using the `Vue.directive` method',
+      language: 'VueJS',
+      difficulty: 'Hard'
+    },
+    {
+      question: 'What is the purpose of the `v-show` directive in VueJS?',
+      options: ['To conditionally display an element', 'To bind data to an element', 'To handle events', 'To define computed properties'],
+      answer: 'To conditionally display an element',
+      language: 'VueJS',
+      difficulty: 'Easy'
     }
   ];
 
@@ -954,10 +1331,9 @@ const Quiz: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [quizFinished, setQuizFinished] = useState(false);
   const [showTimeout, setShowTimeout] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState<Language>('All');
-  const [showFilters, setShowFilters] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(10);
-  const [timerActive, setTimerActive] = useState(true);
+  const [selectedLanguage, setSelectedLanguage] = useState<Language | null>(null);
+  const [timeLeft, setTimeLeft] = useState(20);
+  const [timerActive, setTimerActive] = useState(false);
   const [results, setResults] = useState<QuizResult>({
     total: 0,
     correct: 0,
@@ -967,21 +1343,158 @@ const Quiz: React.FC = () => {
     answers: []
   });
 
+  const languageCards = [
+    {
+      name: 'JavaScript',
+      color: 'from-yellow-400 to-yellow-600',
+      icon: 'JS',
+      bgColor: 'bg-yellow-500/10',
+      borderColor: 'border-yellow-400/20'
+    },
+    {
+      name: 'Python',
+      color: 'from-blue-400 to-blue-600',
+      icon: 'Py',
+      bgColor: 'bg-blue-500/10',
+      borderColor: 'border-blue-400/20'
+    },
+    {
+      name: 'Java',
+      color: 'from-red-500 to-red-700',
+      icon: 'Java',
+      bgColor: 'bg-red-500/10',
+      borderColor: 'border-red-500/20'
+    },
+    {
+      name: 'C++',
+      color: 'from-purple-500 to-purple-700',
+      icon: 'C++',
+      bgColor: 'bg-purple-500/10',
+      borderColor: 'border-purple-500/20'
+    },
+    {
+      name: 'TypeScript',
+      color: 'from-blue-500 to-blue-700',
+      icon: 'TS',
+      bgColor: 'bg-blue-500/10',
+      borderColor: 'border-blue-500/20'
+    },
+    {
+      name: 'Ruby',
+      color: 'from-red-400 to-red-600',
+      icon: 'Rb',
+      bgColor: 'bg-red-500/10',
+      borderColor: 'border-red-400/20'
+    },
+    {
+      name: 'Go',
+      color: 'from-cyan-500 to-cyan-700',
+      icon: 'Go',
+      bgColor: 'bg-cyan-500/10',
+      borderColor: 'border-cyan-500/20'
+    },
+    {
+      name: 'Rust',
+      color: 'from-orange-500 to-orange-700',
+      icon: 'Rs',
+      bgColor: 'bg-orange-500/10',
+      borderColor: 'border-orange-500/20'
+    },
+    {
+      name: 'PHP',
+      color: 'from-indigo-500 to-indigo-700',
+      icon: 'PHP',
+      bgColor: 'bg-indigo-500/10',
+      borderColor: 'border-indigo-500/20'
+    },
+    {
+      name: 'Swift',
+      color: 'from-orange-400 to-orange-600',
+      icon: 'Sw',
+      bgColor: 'bg-orange-500/10',
+      borderColor: 'border-orange-400/20'
+    },
+    {
+      name: 'HTML',
+      color: 'from-green-500 to-green-700',
+      icon: 'HTML',
+      bgColor: 'bg-green-500/10',
+      borderColor: 'border-green-500/20'
+    },
+    {
+      name: 'CSS',
+      color: 'from-pink-500 to-pink-700',
+      icon: 'CSS',
+      bgColor: 'bg-pink-500/10',
+      borderColor: 'border-pink-500/20'
+    },
+    {
+      name: 'ReactJS',
+      color: 'from-teal-500 to-teal-700',
+      icon: 'React',
+      bgColor: 'bg-teal-500/10',
+      borderColor: 'border-teal-500/20'
+    },
+    {
+      name: 'NodeJS',
+      color: 'from-lime-500 to-lime-700',
+      icon: 'Node',
+      bgColor: 'bg-lime-500/10',
+      borderColor: 'border-lime-500/20'
+    },
+    {
+      name: 'ExpressJS',
+      color: 'from-gray-500 to-gray-700',
+      icon: 'Express',
+      bgColor: 'bg-gray-500/10',
+      borderColor: 'border-gray-500/20'
+    },
+    {
+      name: 'Angular',
+      color: 'from-red-500 to-red-700',
+      icon: 'Angular',
+      bgColor: 'bg-red-500/10',
+      borderColor: 'border-red-500/20'
+    },
+    {
+      name: 'NextJS',
+      color: 'from-blue-500 to-blue-700',
+      icon: 'Next',
+      bgColor: 'bg-blue-500/10',
+      borderColor: 'border-blue-500/20'
+    },
+    {
+      name: 'VueJS',
+      color: 'from-green-500 to-green-700',
+      icon: 'Vue',
+      bgColor: 'bg-green-500/10',
+      borderColor: 'border-green-500/20'
+    },
+    {
+      name: 'All',
+      color: 'from-green-500 to-green-700',
+      icon: 'All',
+      bgColor: 'bg-green-500/10',
+      borderColor: 'border-green-500/20'
+    },
+  ];
+
   // Filter questions by selected language
-  const filteredQuestions = questions.filter(q => 
-    selectedLanguage === 'All' || q.language === selectedLanguage
-  );
+  const filteredQuestions = selectedLanguage === 'All'
+    ? questions
+    : questions.filter(q => q.language === selectedLanguage);
 
   const currentQuestion = filteredQuestions[currentQuestionIndex];
   const progress = filteredQuestions.length > 0 ? ((currentQuestionIndex + 1) / filteredQuestions.length) * 100 : 0;
 
   // Initialize or reset quiz
-  const startQuiz = () => {
+  const startQuiz = (language: Language) => {
+    setSelectedLanguage(language);
     setCurrentQuestionIndex(0);
     setSelectedOption(null);
     setQuizFinished(false);
     setShowTimeout(false);
-    setTimeLeft(10);
+    setTimeLeft(20);
     setTimerActive(true);
     setResults({
       total: filteredQuestions.length,
@@ -993,15 +1506,28 @@ const Quiz: React.FC = () => {
     });
   };
 
-  // Handle language change
-  useEffect(() => {
-    startQuiz();
-  }, [selectedLanguage]);
+  // Reset everything when leaving the quiz
+  const resetQuiz = () => {
+    setSelectedLanguage(null);
+    setCurrentQuestionIndex(0);
+    setSelectedOption(null);
+    setQuizFinished(false);
+    setShowTimeout(false);
+    setTimerActive(false);
+    setResults({
+      total: 0,
+      correct: 0,
+      wrong: 0,
+      skipped: 0,
+      timeouts: 0,
+      answers: []
+    });
+  };
 
   // Timer logic
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    
+
     if (timerActive && !quizFinished && filteredQuestions.length > 0) {
       timer = setInterval(() => {
         setTimeLeft(prev => {
@@ -1020,22 +1546,22 @@ const Quiz: React.FC = () => {
 
   // Reset timer when question changes
   useEffect(() => {
-    if (!quizFinished && filteredQuestions.length > 0) {
-      setTimeLeft(10);
+    if (!quizFinished && filteredQuestions.length > 0 && selectedLanguage) {
+      setTimeLeft(20);
       setTimerActive(true);
       setSelectedOption(null);
       setShowTimeout(false);
     }
-  }, [currentQuestionIndex, quizFinished, filteredQuestions]);
+  }, [currentQuestionIndex, quizFinished, filteredQuestions, selectedLanguage]);
 
   const handleAnswer = (selected: string) => {
     if (!timerActive || selectedOption !== null) return;
-    
+
     setSelectedOption(selected);
     setTimerActive(false);
-    
+
     const isCorrect = selected === currentQuestion.answer;
-    
+
     setResults(prev => ({
       ...prev,
       correct: isCorrect ? prev.correct + 1 : prev.correct,
@@ -1075,26 +1601,9 @@ const Quiz: React.FC = () => {
     }));
   };
 
-  const handleSkip = () => {
-    setResults(prev => ({
-      ...prev,
-      skipped: prev.skipped + 1,
-      answers: [
-        ...prev.answers,
-        {
-          question: currentQuestion.question,
-          userAnswer: null,
-          correctAnswer: currentQuestion.answer,
-          isCorrect: false
-        }
-      ]
-    }));
-    moveToNextQuestion();
-  };
-
   const handleRetry = () => {
     setShowTimeout(false);
-    setTimeLeft(10);
+    setTimeLeft(20);
     setTimerActive(true);
   };
 
@@ -1106,11 +1615,63 @@ const Quiz: React.FC = () => {
     }
   };
 
-  const languages: Language[] = ['All', 'JavaScript', 'Python', 'Java', 'C++', 'TypeScript', 'Ruby', 'Go', 'Rust', 'PHP', 'Swift'];
+  if (!selectedLanguage) {
+    return (
+      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-12">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center space-y-4 mb-12"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-500 bg-clip-text text-transparent">
+            Programming Languages Quiz
+          </h1>
+          <p className="text-lg text-gray-600 dark:text-gray-300">
+            Select a language to test your knowledge
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {languageCards.map((card) => (
+            <motion.div
+              key={card.name}
+              whileHover={{ y: -5 }}
+              whileTap={{ scale: 0.98 }}
+              className="relative group"
+              onClick={() => startQuiz(card.name as Language)}
+            >
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg blur opacity-0 group-hover:opacity-75 transition duration-200"></div>
+              <div className={`relative flex flex-col h-full p-6 rounded-lg border ${card.borderColor} ${card.bgColor} overflow-hidden`}>
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{card.name}</h3>
+                  <span className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r ${card.color} text-white font-bold`}>
+                    {card.icon}
+                  </span>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 mb-6">
+                  {card.name === 'All'
+                    ? 'Mixed questions from all languages'
+                    : `Test your ${card.name} knowledge with ${questions.filter(q => q.language === card.name).length} questions`}
+                </p>
+                <div className="mt-auto">
+                  <button className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-sm font-medium text-gray-700 dark:text-gray-200 bg-white/50 dark:bg-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    Start Quiz
+                    <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   if (filteredQuestions.length === 0) {
     return (
-      <div className="space-y-8 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto py-12">
+      <div className="px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto py-12">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -1126,13 +1687,13 @@ const Quiz: React.FC = () => {
             No questions available
           </h3>
           <p className="text-gray-600 dark:text-gray-300 mt-2">
-            We couldn't find any questions matching your filters
+            We couldn't find any questions for {selectedLanguage}
           </p>
           <button
-            onClick={() => setSelectedLanguage('All')}
+            onClick={resetQuiz}
             className="mt-4 inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-lg transition-colors font-medium"
           >
-            Show All Questions
+            Back to Language Selection
           </button>
         </div>
       </div>
@@ -1148,48 +1709,12 @@ const Quiz: React.FC = () => {
         className="text-center space-y-4"
       >
         <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-500 bg-clip-text text-transparent">
-          Programming Languages Quiz
+          {selectedLanguage} Quiz
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-300">
-          Test your knowledge across multiple programming languages
+          Test your {selectedLanguage === 'All' ? 'programming' : selectedLanguage} knowledge
         </p>
       </motion.div>
-
-      {/* Language Filter */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow border border-gray-200/50 dark:border-gray-700/50">
-        <button 
-          onClick={() => setShowFilters(!showFilters)}
-          className="flex items-center gap-2 text-gray-700 dark:text-gray-300"
-        >
-          <Filter className="h-5 w-5" />
-          Filter by Language
-          {showFilters ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
-        </button>
-
-        {showFilters && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            className="mt-4"
-          >
-            <div className="flex flex-wrap gap-2">
-              {languages.map(lang => (
-                <button
-                  key={lang}
-                  onClick={() => setSelectedLanguage(lang)}
-                  className={`px-3 py-1 rounded-full text-sm ${
-                    selectedLanguage === lang
-                      ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
-                  }`}
-                >
-                  {lang}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </div>
 
       {quizFinished ? (
         <motion.div
@@ -1203,7 +1728,7 @@ const Quiz: React.FC = () => {
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             Quiz Results
           </h2>
-          
+
           <div className="grid grid-cols-2 gap-4 mb-6 max-w-md mx-auto">
             <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
               <div className="text-2xl font-bold text-green-600 dark:text-green-300">
@@ -1240,8 +1765,8 @@ const Quiz: React.FC = () => {
           </div>
 
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-6">
-            <div 
-              className="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full" 
+            <div
+              className="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full"
               style={{ width: `${(results.correct / results.total) * 100}%` }}
             />
           </div>
@@ -1250,8 +1775,8 @@ const Quiz: React.FC = () => {
             <h3 className="text-lg font-semibold mb-2">Detailed Results:</h3>
             {results.answers.map((answer, index) => (
               <div key={index} className={`mb-4 p-3 rounded-lg border ${
-                answer.isCorrect 
-                  ? 'border-green-500 bg-green-50 dark:bg-green-900/10' 
+                answer.isCorrect
+                  ? 'border-green-500 bg-green-50 dark:bg-green-900/10'
                   : 'border-red-500 bg-red-50 dark:bg-red-900/10'
               }`}>
                 <p className="font-medium">{answer.question}</p>
@@ -1267,14 +1792,22 @@ const Quiz: React.FC = () => {
               </div>
             ))}
           </div>
-          
-          <button
-            onClick={startQuiz}
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-lg transition-colors font-medium"
-          >
-            <RotateCw className="h-5 w-5" />
-            Restart Quiz
-          </button>
+
+          <div className="flex justify-center gap-4">
+            <button
+              onClick={resetQuiz}
+              className="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg transition-colors font-medium"
+            >
+              Back to Languages
+            </button>
+            <button
+              onClick={() => startQuiz(selectedLanguage)}
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-lg transition-colors font-medium"
+            >
+              <RotateCw className="h-5 w-5" />
+              Restart Quiz
+            </button>
+          </div>
         </motion.div>
       ) : showTimeout ? (
         <motion.div
@@ -1292,7 +1825,7 @@ const Quiz: React.FC = () => {
           <div className="bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300 p-4 rounded-lg mb-6 font-medium">
             {currentQuestion.answer}
           </div>
-          
+
           <div className="flex justify-center gap-4">
             <button
               onClick={handleRetry}
@@ -1301,11 +1834,11 @@ const Quiz: React.FC = () => {
               Try Again
             </button>
             <button
-              onClick={handleSkip}
+              onClick={moveToNextQuestion}
               className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg transition-colors font-medium"
             >
-              <SkipForward className="h-5 w-5" />
-              Skip Question
+              <ArrowRight className="h-5 w-5" />
+              Next Question
             </button>
           </div>
         </motion.div>
@@ -1314,16 +1847,16 @@ const Quiz: React.FC = () => {
           {/* Progress bar and timer */}
           <div className="flex justify-between items-center">
             <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mr-4">
-              <motion.div 
-                className="bg-gradient-to-r from-blue-500 to-purple-600 h-2.5 rounded-full" 
+              <motion.div
+                className="bg-gradient-to-r from-blue-500 to-purple-600 h-2.5 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.5 }}
               />
             </div>
             <div className={`flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-              timeLeft < 4 ? 'bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300' : 
-              timeLeft < 7 ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300' : 
+              timeLeft < 8 ? 'bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300' :
+              timeLeft < 14 ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300' :
               'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300'
             }`}>
               <Clock className="h-4 w-4 mr-1" />
@@ -1344,10 +1877,10 @@ const Quiz: React.FC = () => {
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
               {currentQuestion.question}
             </h2>
-            
+
             <div className="space-y-3 mb-8">
               {currentQuestion.options.map((option, index) => (
-                <motion.div 
+                <motion.div
                   key={index}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -1366,11 +1899,6 @@ const Quiz: React.FC = () => {
                     }`}
                   >
                     {option}
-                    {selectedOption === option && (
-                      <span className="float-right">
-                        {option === currentQuestion.answer ? '✓' : '✗'}
-                      </span>
-                    )}
                   </button>
                 </motion.div>
               ))}
@@ -1378,14 +1906,13 @@ const Quiz: React.FC = () => {
 
             <div className="flex justify-between items-center">
               <button
-                onClick={handleSkip}
+                onClick={resetQuiz}
                 className="inline-flex items-center gap-2 px-4 py-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
               >
-                <SkipForward className="h-5 w-5" />
-                Skip Question
+                ← Back to Languages
               </button>
-              
-              {selectedOption && (
+
+              <div className="flex gap-2">
                 <button
                   onClick={moveToNextQuestion}
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-lg transition-colors font-medium"
@@ -1393,7 +1920,7 @@ const Quiz: React.FC = () => {
                   {currentQuestionIndex === filteredQuestions.length - 1 ? 'Finish Quiz' : 'Next Question'}
                   <ArrowRight className="h-5 w-5" />
                 </button>
-              )}
+              </div>
             </div>
           </motion.div>
         </>

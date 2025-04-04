@@ -30,7 +30,7 @@ const teamMembers = [
     expertise: "Python Expert · Database Wizard",
     social: {
       linkedin: "https://www.linkedin.com/in/shaikh-musa-77a80631a/",
-      email: "mailto:shaikhmusa6448@gmail.com",
+      email: "mailto:dev.shaikhmusa@gmail.com",
       insta: "https://instagram.com/shaikh.musa.08",
       phone: "tel:+917822896448",
     },

@@ -14,6 +14,7 @@ import {
   Braces,
   Sparkles,
   Brain,
+  Coins,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -32,6 +33,7 @@ const navItems = [
   { to: "/resume-builder", icon: FileText, label: "Resume Builder" },
   // { to: "/ask-me-anything", icon: MessageCircleQuestion, label: "Ask Me Anything" },
   { to: "/feedback", icon: BookOpen, label: "Feedback" },
+  { to: "/coin", icon: Coins, label: "Coins" },
   { to: "/contact-us", icon: Briefcase, label: "Contact Us" },
   { to: "/about", icon: Users, label: "About" },
 ];
