@@ -20,6 +20,9 @@ import AMAPage from "./pages/AMA";
 import NextStepAI from "./pages/NextStepAI";
 import Quiz from "./pages/Quiz";
 import Store from "./pages/Store"
+import Footer from "./components/Footer";
+import LearnLanguages from "./pages/LearnLanguages"
+import LanguagesPage from "./pages/LanguagesPage";
 
 function App() {
   const theme = useStore((state) => state.theme);
@@ -38,6 +41,8 @@ function App() {
             <Route path="/ask-me-anything" element={<AMAPage />} />
             <Route path="/next-step-ai" element={<NextStepAI />} />
             <Route path="/about" element={<About />} />
+            <Route path="/learn-language" element={<LearnLanguages/>} />
+            <Route path="/languages/:languageName" element={<LanguagesPage/>} />
             <Route path="/community" element={<Community />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/contact-us" element={<Contact />} />
@@ -49,6 +54,7 @@ function App() {
           </Routes>
         </Layout>
         <ScrollToTop />
+        <Footer/>
       </Router>
 
       <Toaster
