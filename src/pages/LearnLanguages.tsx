@@ -159,6 +159,70 @@ const Languages: React.FC = () => {
       color: 'from-green-500 to-green-700',
       bgColor: 'bg-green-500/10',
       borderColor: 'border-green-500/20'
+    },
+    {
+      name: 'Kotlin',
+      description: 'A modern statically typed programming language for JVM and Android',
+      icon: 'Kt',
+      color: 'from-purple-400 to-purple-600',
+      bgColor: 'bg-purple-500/10',
+      borderColor: 'border-purple-400/20'
+    },
+    {
+      name: 'Dart',
+      description: 'An optimized language for building mobile, desktop, server, and web apps',
+      icon: 'Dart',
+      color: 'from-cyan-400 to-cyan-600',
+      bgColor: 'bg-cyan-500/10',
+      borderColor: 'border-cyan-400/20'
+    },
+    {
+      name: 'Bash',
+      description: 'A Unix shell and command language',
+      icon: 'Bash',
+      color: 'from-gray-600 to-gray-800',
+      bgColor: 'bg-gray-600/10',
+      borderColor: 'border-gray-600/20'
+    },
+    {
+      name: 'Perl',
+      description: 'A highly capable, feature-rich programming language with over 30 years of development',
+      icon: 'Perl',
+      color: 'from-pink-400 to-pink-600',
+      bgColor: 'bg-pink-500/10',
+      borderColor: 'border-pink-400/20'
+    },
+    {
+      name: 'Scala',
+      description: 'A concise, elegant language that integrates functional and object-oriented programming',
+      icon: 'Scala',
+      color: 'from-red-600 to-red-800',
+      bgColor: 'bg-red-600/10',
+      borderColor: 'border-red-600/20'
+    },
+    {
+      name: 'Elixir',
+      description: 'A dynamic, functional language designed for building scalable and maintainable applications',
+      icon: 'Ex',
+      color: 'from-indigo-400 to-indigo-600',
+      bgColor: 'bg-indigo-500/10',
+      borderColor: 'border-indigo-400/20'
+    },
+    {
+      name: 'Haskell',
+      description: 'A statically typed purely functional programming language',
+      icon: 'Hs',
+      color: 'from-violet-500 to-violet-700',
+      bgColor: 'bg-violet-500/10',
+      borderColor: 'border-violet-500/20'
+    },
+    {
+      name: 'MATLAB',
+      description: 'A programming platform designed for engineers and scientists',
+      icon: 'MAT',
+      color: 'from-yellow-600 to-yellow-800',
+      bgColor: 'bg-yellow-600/10',
+      borderColor: 'border-yellow-600/20'
     }
   ];
 
@@ -216,4 +280,3 @@ const Languages: React.FC = () => {
 };
 
 export default Languages;
-

@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useStore } from "../store/useStore";
 
+import darkLogo from "../images/darkLogo-removebg-preview.png";
+import lightLogo from "../images/lightLogo-removebg-preview.png";
 
 const Footer: React.FC = () => {
+    const { theme } = useStore();
   return (
     <footer className="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 py-8 transition-colors duration-300">
       <div className="container mx-auto px-4">
@@ -10,11 +14,18 @@ const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-around items-center">
           {/* Left Section: Logo/Brand */}
           <div className="mb-4 md:mb-0 flex items-center space-x-2">
-            <img src="/logo.png" alt="Next Step Logo" className="h-8 w-8 object-contain" />
-            <div>
+             {/* Logo Section */}
+             <Link to="/" className="flex items-center gap-2">
+            <img
+              src={theme === "dark" ? darkLogo : lightLogo}
+              alt="CareerPath Logo"
+              className="h-16 w-auto"
+            />
+          </Link>
+            {/* <div>
               <h2 className="text-xl font-bold text-gray-800 dark:text-white">Next Step</h2>
               <p className="text-sm text-gray-500 dark:text-gray-400">Your Path to Success</p>
-            </div>
+            </div> */}
           </div>
 
           {/* Center Section: Links */}
