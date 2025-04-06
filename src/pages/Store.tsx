@@ -107,6 +107,8 @@ const Store: React.FC = () => {
     }
   };
 
+  const remainingPoints = points - calculateTotal();
+
   return (
     <div className="space-y-8 md:space-y-16 py-8 md:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Store Header */}
@@ -251,11 +253,27 @@ const Store: React.FC = () => {
             </div>
             
             <div className="border-t border-gray-200 dark:border-gray-700 pt-3">
-              <div className="flex justify-between mb-3">
-                <span className="font-medium">Total:</span>
-                <span className="font-bold text-green-500">{calculateTotal()} points</span>
+              <div className="flex justify-between mb-2">
+                <span className="font-medium">Cart Total:</span>
+                <span className="font-bold">{calculateTotal()} points</span>
               </div>
-              
+              <div className="flex justify-between mb-2">
+                <span className="font-medium">Remaining Points:</span>
+                <span className={`font-bold ${remainingPoints >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                  {remainingPoints} points
+                </span>
+              </div>
+              {/* <div className="flex justify-between mb-3">
+                <span className="font-medium">After Checkout:</span>
+                <span className="font-bold">
+                  {remainingPoints >= 0 ? (
+                    <span className="text-green-500">{remainingPoints} points</span>
+                  ) : (
+                    <span className="text-red-500">Not enough points</span>
+                  )}
+                </span>
+              </div>
+               */}
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={cancelOrder}
@@ -266,11 +284,11 @@ const Store: React.FC = () => {
                 <button
                   onClick={checkout}
                   className={`py-2 px-4 rounded-lg font-medium ${
-                    calculateTotal() <= points
+                    remainingPoints >= 0
                       ? "bg-green-500 hover:bg-green-600 text-white"
                       : "bg-gray-300 text-gray-500 cursor-not-allowed"
                   }`}
-                  disabled={calculateTotal() > points}
+                  disabled={remainingPoints < 0}
                 >
                   Checkout
                 </button>
