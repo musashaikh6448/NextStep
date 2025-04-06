@@ -306,7 +306,7 @@ const NextStepAI: React.FC = () => {
       </div>
 
       {/* Features Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-8 sm:mt-10">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-8 sm:mt-10">
         {[
           {
             icon: <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-white" />,
@@ -338,9 +338,10 @@ const NextStepAI: React.FC = () => {
             </p>
           </motion.div>
         ))}
-      </div>
+      </div> */}
     </motion.div>
   );
 };
 
 export default NextStepAI;
+
