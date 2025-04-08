@@ -129,7 +129,7 @@ export const Home: React.FC = () => {
         </motion.div>
         <GeminiEffect/>
       <CareerCloud />
-      <AdsterraNativeBanner/>
+      {/* <AdsterraNativeBanner/> */}
       <CareerDetails/>
       <CareerPathway/>
       </div>
