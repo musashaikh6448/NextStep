@@ -88,7 +88,7 @@ export const Home: React.FC = () => {
                 Explore Career Roadmaps
               </Link>
               <Link
-                to="/career-quiz"
+                to="/quiz"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-all"
               >
                 <BookOpen className="h-5 w-5" />

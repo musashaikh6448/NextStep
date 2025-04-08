@@ -8,14 +8,13 @@ import {
   FileText,
   Users,
   BookOpen,
-  MessageCircleQuestion,
   Briefcase,
   TicketCheck,
   Braces,
   Sparkles,
   Brain,
   Store,
-  Languages,
+  Codepen,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -28,9 +27,9 @@ const navItems = [
   { to: "/careers", icon: Briefcase, label: "Careers" },
   { to: "/degrees", icon: GraduationCap, label: "Degrees" },
   { to: "/certifications", icon: TicketCheck, label: "Certifications" },
-  { to: "/learn-language", icon:Languages, label: "Learn Languages" },
+  { to: "/learn-language", icon: Codepen, label: "Learn Languages" },
   { to: "/next-step-ai", icon: Sparkles, label: "Next Step AI" },
-  { to: "/playground", icon: Braces, label: "Live Code Playground" },
+  { to: "/playground", icon: Braces, label: "Code Playground" },
   { to: "/quiz", icon: Brain , label: "Quiz" },
   { to: "/resume-builder", icon: FileText, label: "Resume Builder" },
   // { to: "/ask-me-anything", icon: MessageCircleQuestion, label: "Ask Me Anything" },
