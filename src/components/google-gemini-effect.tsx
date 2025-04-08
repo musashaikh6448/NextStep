@@ -31,7 +31,7 @@ export const GoogleGeminiEffect = ({
       </p>
       <div className="w-full h-[100vh] -top-10 md:-top-32  flex items-center justify-center bg-red-transparent absolute ">
         <motion.button
-          onClick={() => navigate("/next-chat-ai")}
+          onClick={() => navigate("/next-step-ai")}
           className="relative overflow-hidden group gradient-border rounded-xl p-[2px]"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
