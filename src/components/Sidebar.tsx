@@ -32,6 +32,7 @@ const navItems = [
   { to: "/playground", icon: Braces, label: "Code Playground" },
   { to: "/quiz", icon: Brain , label: "Quiz" },
   { to: "/resume-builder", icon: FileText, label: "Resume Builder" },
+  
   // { to: "/ask-me-anything", icon: MessageCircleQuestion, label: "Ask Me Anything" },
   { to: "/feedback", icon: BookOpen, label: "Feedback" },
   { to: "/store", icon: Store, label: "Store" },
