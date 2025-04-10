@@ -40,6 +40,10 @@ const Footer: React.FC = () => {
             <Link to="/contact-us" className="hover:text-blue-500 dark:hover:text-blue-400 transition duration-300">
               Contact
             </Link>
+
+            <Link to="/privacy" className="hover:text-blue-500 dark:hover:text-blue-400 transition duration-300">
+              Privacy
+            </Link>
           </div>
 
           {/* Right Section: Social Media Icons */}
