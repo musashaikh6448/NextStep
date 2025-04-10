@@ -55,7 +55,6 @@ const Store: React.FC = () => {
   const addToCart = (product: Product) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);
-      
       if (existingItem) {
         return prevCart.map((item) =>
           item.id === product.id
@@ -64,22 +63,6 @@ const Store: React.FC = () => {
         );
       } else {
         return [...prevCart, { ...product, quantity: 1 }];
-      }
-    });
-  };
-
-  const removeFromCart = (productId: number) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === productId);
-      
-      if (existingItem && existingItem.quantity > 1) {
-        return prevCart.map((item) =>
-          item.id === productId
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        );
-      } else {
-        return prevCart.filter((item) => item.id !== productId);
       }
     });
   };
@@ -111,7 +94,6 @@ const Store: React.FC = () => {
 
   return (
     <div className="space-y-8 md:space-y-16 py-8 md:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Store Header */}
       <section className="text-center">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -129,7 +111,6 @@ const Store: React.FC = () => {
         </motion.p>
       </section>
 
-      {/* Points Display */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -142,7 +123,6 @@ const Store: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Products Grid - 2 columns on mobile */}
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {products.map((product, index) => (
           <motion.div
@@ -153,7 +133,6 @@ const Store: React.FC = () => {
             className="bg-white dark:bg-gray-800 rounded-xl md:rounded-2xl p-3 md:p-4 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-700"
           >
             <div className="flex flex-col h-full">
-              {/* Image container with fixed aspect ratio */}
               <div className="w-full aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden mb-2 md:mb-3">
                 <img
                   src={product.image}
@@ -175,11 +154,12 @@ const Store: React.FC = () => {
                 </p>
                 <button
                   onClick={() => addToCart(product)}
-                  className={`w-full py-1 md:py-2 px-3 rounded-lg text-xs md:text-sm ${
-                    points >= product.price
-                      ? "bg-blue-500 hover:bg-blue-600 text-white"
-                      : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  }`}
+                  className={`w-full py-2 px-4 text-sm font-medium rounded-full transition-all duration-300 
+                    ${
+                      points >= product.price
+                        ? "bg-gradient-to-r from-purple-600 to-blue-500 text-white hover:opacity-90"
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    }`}
                   disabled={points < product.price}
                 >
                   Add to Cart
@@ -190,7 +170,6 @@ const Store: React.FC = () => {
         ))}
       </div>
 
-      {/* Cart Section */}
       <motion.div
         initial={{ scale: 0.9 }}
         whileInView={{ scale: 1 }}
@@ -224,22 +203,7 @@ const Store: React.FC = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <button 
-                      onClick={() => removeFromCart(item.id)}
-                      className="text-xs p-1 w-6 h-6 flex items-center justify-center bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500"
-                      aria-label="Decrease quantity"
-                    >
-                      -
-                    </button>
-                    <span className="text-sm w-6 text-center">{item.quantity}</span>
-                    <button 
-                      onClick={() => addToCart(item)}
-                      className="text-xs p-1 w-6 h-6 flex items-center justify-center bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500"
-                      aria-label="Increase quantity"
-                    >
-                      +
-                    </button>
+                  <div className="flex items-center">
                     <button 
                       onClick={() => removeItemCompletely(item.id)}
                       className="text-xs p-1 w-6 h-6 flex items-center justify-center bg-red-100 dark:bg-red-900 rounded-md hover:bg-red-200 dark:hover:bg-red-800 text-red-600 dark:text-red-300"
@@ -263,17 +227,6 @@ const Store: React.FC = () => {
                   {remainingPoints} points
                 </span>
               </div>
-              {/* <div className="flex justify-between mb-3">
-                <span className="font-medium">After Checkout:</span>
-                <span className="font-bold">
-                  {remainingPoints >= 0 ? (
-                    <span className="text-green-500">{remainingPoints} points</span>
-                  ) : (
-                    <span className="text-red-500">Not enough points</span>
-                  )}
-                </span>
-              </div>
-               */}
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={cancelOrder}
@@ -282,23 +235,24 @@ const Store: React.FC = () => {
                   Cancel Order
                 </button>
                 <button
-                  onClick={checkout}
-                  className={`py-2 px-4 rounded-lg font-medium ${
-                    remainingPoints >= 0
-                      ? "bg-green-500 hover:bg-green-600 text-white"
-                      : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  }`}
-                  disabled={remainingPoints < 0}
-                >
-                  Checkout
-                </button>
+  onClick={checkout}
+  className={`py-2 px-4 text-sm font-medium rounded-full transition-all duration-300 
+    ${
+      remainingPoints >= 0
+        ? "bg-gradient-to-r from-purple-600 to-blue-500 text-white hover:opacity-90"
+        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+    }`}
+  disabled={remainingPoints < 0}
+>
+  Checkout
+</button>
+
               </div>
             </div>
           </div>
         )}
       </motion.div>
 
-      {/* Footer Note */}
       <div className="text-center text-xs md:text-sm text-gray-400 dark:text-gray-500">
         Items ship within 2-3 weeks. All sales final.
       </div>
