@@ -73,7 +73,7 @@ function App() {
         }}
 
       />
-      <AdsteraSocialBar />
+      {/* <AdsteraSocialBar /> */}
     </div>
   );
 }

@@ -17,6 +17,7 @@ import {
   Smile,
   Camera,
 } from "lucide-react";
+import AdsterraNativeBanner from "../components/AdsterraNativeBanner";
 
 const resumeVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -30,6 +31,8 @@ const resumeVariants = {
 export const ResumeBuilder: React.FC = () => {
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      
+      <AdsterraNativeBanner/>
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -502,7 +505,7 @@ ACHIEVEMENTS:
         </div>
       </motion.div>
 
-      
+
     </div>
   );
 };
