@@ -27,7 +27,7 @@ const navItems = [
   { to: "/careers", icon: Briefcase, label: "Careers" },
   { to: "/degrees", icon: GraduationCap, label: "Degrees" },
   { to: "/certifications", icon: TicketCheck, label: "Certifications" },
-  { to: "/learn-language", icon: Codepen, label: "Learn Languages" },
+  // { to: "/learn-language", icon: Codepen, label: "Learn Languages" },
   { to: "/next-step-ai", icon: Sparkles, label: "Next Step AI" },
   { to: "/playground", icon: Braces, label: "Code Playground" },
   // { to: "/quiz", icon: Brain , label: "Quiz" },
