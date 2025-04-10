@@ -23,6 +23,7 @@ import Store from "./pages/Store"
 import Footer from "./components/Footer";
 import LearnLanguages from "./pages/LearnLanguages"
 import LanguagesPage from "./pages/LanguagesPage";
+import AdsteraSocialBar from "./components/AdsteraSocialBar";
 
 function App() {
   const theme = useStore((state) => state.theme);
@@ -41,20 +42,20 @@ function App() {
             <Route path="/ask-me-anything" element={<AMAPage />} />
             <Route path="/next-step-ai" element={<NextStepAI />} />
             <Route path="/about" element={<About />} />
-            <Route path="/learn-language" element={<LearnLanguages/>} />
-            <Route path="/languages/:languageName" element={<LanguagesPage/>} />
+            <Route path="/learn-language" element={<LearnLanguages />} />
+            <Route path="/languages/:languageName" element={<LanguagesPage />} />
             <Route path="/community" element={<Community />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/contact-us" element={<Contact />} />
             <Route path="/quiz" element={<Quiz />} />
             <Route path="/careers" element={<Careers />} />
-            <Route path="/store" element={<Store/>} />
+            <Route path="/store" element={<Store />} />
             <Route path="/career/:id" element={<CareerDetails />} />
             <Route path="*" element={<WorkInProgress />} />
           </Routes>
         </Layout>
         <ScrollToTop />
-        <Footer/>
+        <Footer />
       </Router>
 
       <Toaster
@@ -70,7 +71,10 @@ function App() {
             borderRadius: "12px",
           },
         }}
-      />    </div>
+
+      />
+      <AdsteraSocialBar />
+    </div>
   );
 }
 
