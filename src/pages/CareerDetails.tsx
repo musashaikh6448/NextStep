@@ -19,6 +19,7 @@ import {
   WalletCards,
 } from "lucide-react";
 import { Career } from "../data/careers";
+import AdsterraBanner from "../components/AdsterraBanner";
 
 const CareerDetails = () => {
   const { id } = useParams();
@@ -27,6 +28,8 @@ const CareerDetails = () => {
   if (!career) {
     return (
       <div className="min-h-screen flex items-center justify-center">
+        <AdsterraBanner />
+
         <div className="text-center p-8 max-w-md">
           <X className="h-16 w-16 text-red-500 mx-auto mb-4 animate-pulse" />
           <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">
@@ -50,6 +53,8 @@ const CareerDetails = () => {
       animate={{ opacity: 1 }}
       className="py-12 px-4 sm:px-6 lg:px-8  min-h-screen"
     >
+      <AdsterraBanner />
+
       <div className="container mx-auto max-w-7xl">
         <Link
           to="/careers"
@@ -339,9 +344,8 @@ const SalaryRow = ({
   highlight?: boolean;
 }) => (
   <div
-    className={`flex justify-between items-center p-2 rounded-lg ${
-      highlight ? "bg-purple-50 dark:bg-gray-600" : ""
-    }`}
+    className={`flex justify-between items-center p-2 rounded-lg ${highlight ? "bg-purple-50 dark:bg-gray-600" : ""
+      }`}
   >
     <span className="text-gray-600 dark:text-gray-300">{label}</span>
     <span className="font-medium text-gray-700 dark:text-gray-200">

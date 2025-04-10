@@ -8,6 +8,7 @@ import CareerDetails from "../components/CareerDetails";
 import CareerPathway from "../components/CareerPathway";
 import GeminiEffect from "./GeminiEffect";
 import AdsterraNativeBanner from "../components/AdsterraNativeBanner";
+import AdsterraBanner from "../components/AdsterraBanner";
 
 export const Home: React.FC = () => {
   const containerVariants = {
@@ -130,6 +131,7 @@ export const Home: React.FC = () => {
         <GeminiEffect/>
       <CareerCloud />
       <CareerDetails/>
+      <AdsterraBanner/>
       <CareerPathway/>
       <AdsterraNativeBanner/>
       </div>
