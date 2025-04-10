@@ -4,6 +4,7 @@ import store1 from "../images/NextStep-tshirt-1.png";
 import store2 from "../images/NextStep-cup.png";
 import store3 from "../images/NextStep-cap.png";
 import store4 from "../images/NextStep-notebook.png";
+import store5 from "../images/NextStep-hoodie.jpeg"
 
 interface Product {
   id: number;
@@ -49,6 +50,13 @@ const Store: React.FC = () => {
       description: "Hardcover 120-page notebook",
       price: 400,
       image: store4,
+    },
+    {
+      id: 5,
+      name: "Hoodie",
+      description: "Comes in black or white",
+      price: 1000,
+      image: store5,
     },
   ];
 
