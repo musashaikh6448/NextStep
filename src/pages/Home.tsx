@@ -129,9 +129,9 @@ export const Home: React.FC = () => {
         </motion.div>
         <GeminiEffect/>
       <CareerCloud />
-      <AdsterraNativeBanner/>
       <CareerDetails/>
       <CareerPathway/>
+      <AdsterraNativeBanner/>
       </div>
     </div>
   );
