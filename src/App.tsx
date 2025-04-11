@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { Home } from "./pages/Home";
 import { Degrees } from "./pages/Degrees";
@@ -27,10 +27,11 @@ import AdsteraSocialBar from "./components/AdsteraSocialBar";
 
 function App() {
   const theme = useStore((state) => state.theme);
+  const location = useLocation();
 
   return (
     <div className={theme}>
-      <Router>
+     
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -55,8 +56,8 @@ function App() {
           </Routes>
         </Layout>
         <ScrollToTop />
-        <Footer />
-      </Router>
+        {location.pathname !== "/next-step-ai" && <Footer />}
+ 
 
       <Toaster
         position="top-center"
