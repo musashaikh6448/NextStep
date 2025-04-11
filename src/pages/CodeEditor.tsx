@@ -2,6 +2,7 @@ import { useState, useCallback, Suspense, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Copy, Check, Sun, Moon, Code2, Play, Terminal } from "lucide-react";
 import Editor from "@monaco-editor/react";
+import AdsterraBanner from "../components/AdsterraBanner";
 
 const SUPPORTED_LANGUAGES = [
   "javascript",
@@ -256,6 +257,7 @@ const CodeEditor: React.FC = () => {
           </div>
         </div>
       </div>
+      <AdsterraBanner/>
     </motion.div>
   );
 };

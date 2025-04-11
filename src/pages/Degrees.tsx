@@ -1,29 +1,30 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Search,  ArrowRight } from "lucide-react";
+import { Search, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { degrees } from "../data/degrees";
+import AdsterraNativeBanner from "../components/AdsterraNativeBanner";
 
 export const Degrees: React.FC = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
 
   // Update the filteredDegrees logic with better search handling
-const filteredDegrees = degrees.filter((degree) => {
-  const normalize = (str: string) => 
-    str.toLowerCase()
-       .replace(/[^a-z0-9]/g, '') // Remove special characters and spaces
-       .trim();
+  const filteredDegrees = degrees.filter((degree) => {
+    const normalize = (str: string) =>
+      str.toLowerCase()
+        .replace(/[^a-z0-9]/g, '') // Remove special characters and spaces
+        .trim();
 
-  const searchTermNormalized = normalize(searchTerm);
-  
-  const nameMatch = normalize(degree.name).includes(searchTermNormalized);
-  const fullFormMatch = normalize(degree.fullForm).includes(searchTermNormalized);
-  const careersMatch = degree.careers.some(c => 
-    normalize(c).includes(searchTermNormalized)
-  );
+    const searchTermNormalized = normalize(searchTerm);
 
-  return nameMatch || fullFormMatch || careersMatch;
-});
+    const nameMatch = normalize(degree.name).includes(searchTermNormalized);
+    const fullFormMatch = normalize(degree.fullForm).includes(searchTermNormalized);
+    const careersMatch = degree.careers.some(c =>
+      normalize(c).includes(searchTermNormalized)
+    );
+
+    return nameMatch || fullFormMatch || careersMatch;
+  });
 
   return (
     <div className="space-y-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -88,7 +89,7 @@ const filteredDegrees = degrees.filter((degree) => {
                     </p>
                   </div>
 
-                  
+
                 </div>
 
                 {/* Description */}
@@ -148,6 +149,8 @@ const filteredDegrees = degrees.filter((degree) => {
           </p>
         </motion.div>
       )}
+      <AdsterraNativeBanner />
+
     </div>
   );
 };

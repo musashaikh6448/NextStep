@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Career, careers } from "../data/careers";
 import { Clock, Rocket, Briefcase, Search } from "lucide-react";
+import AdsterraNativeBanner from "../components/AdsterraNativeBanner";
 
 const CareerCard = ({ career }: { career: Career }) => {
   const navigate = useNavigate();
@@ -108,6 +109,8 @@ const Careers = () => {
           ))}
         </div>
       </div>
+      <AdsterraNativeBanner/>
+
     </section>
   );
 };
