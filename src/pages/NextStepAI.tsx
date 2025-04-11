@@ -9,10 +9,30 @@ interface Message {
   timestamp: Date;
 }
 
+const imageUrls = [
+  "https://indianmemetemplates.com/wp-content/uploads/Bhai-yeh-to-koi-response-hi-nahi-de-raha-1200x674.jpg",
+  "https://i.pinimg.com/736x/d7/33/b6/d733b6cd8efe9d99a74b08063a21ed26.jpg",
+  "https://indianmemetemplates.com/wp-content/uploads/abhi-theek-karke-deta-hu.jpg",
+  "https://scrolldroll.com/wp-content/uploads/2021/09/Clear-Bol-Clear-bollywood-Meme-Templates-2021.jpeg",
+];
+
 const loadingMessages = [
-  "🥲 Loading ho raha hai, par WiFi ne kasam khai hai slow chalne ki...",
-  "🦾 Robot mode ON, par thoda hang ho gaya hoon...",
-  "☕ Coffee peene gaya hoon, answer leke hi aayega...",
+  {
+    text: "The server is busy and not responding... still trying to reach it, bro!",
+    image: imageUrls[0],
+  },
+  {
+    text: "Hang on, trying another server... this one seems overloaded!",
+    image: imageUrls[1],
+  },
+  {
+    text: "Working on your request... no tension, it’s in process!",
+    image: imageUrls[2],
+  },
+  {
+    text: "Hmm... maybe there's a typo in your prompt, double-check it bro!",
+    image: imageUrls[3],
+  },
 ];
 
 const NextStepAI: React.FC = () => {
@@ -45,20 +65,24 @@ const NextStepAI: React.FC = () => {
     };
 
     return (
-      <div className="relative my-4 group">
+      <div className="relative my-2 group max-w-[85vw]  xs:max-w-[90vw] sm:max-w-[85vw]">
         <div className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
-          <div className="flex justify-between items-center px-4 py-2 bg-gray-50 dark:bg-gray-900/50">
-            <span className="text-sm font-mono text-gray-600 dark:text-gray-400">
+          <div className="flex justify-between items-center px-3 py-1.5 sm:px-4 sm:py-2 bg-gray-50 dark:bg-gray-900/50">
+            <span className="text-xs sm:text-sm font-mono text-gray-600 dark:text-gray-400">
               {language}
             </span>
             <button
               onClick={handleCopy}
               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
             >
-              {copied ? <Check size={16} /> : <Copy size={16} />}
+              {copied ? (
+                <Check size={14} className="sm:size-4" />
+              ) : (
+                <Copy size={14} className="sm:size-4" />
+              )}
             </button>
           </div>
-          <pre className="p-4 overflow-x-auto text-sm font-mono text-gray-900 dark:text-gray-100">
+          <pre className="p-2 sm:p-4 overflow-x-auto text-xs sm:text-sm font-mono text-gray-900 dark:text-gray-100">
             <code>{code}</code>
           </pre>
         </div>
@@ -75,7 +99,7 @@ const NextStepAI: React.FC = () => {
         elements.push(
           <h3
             key={block}
-            className="text-xl font-semibold mt-6 mb-3 text-gray-900 dark:text-gray-100 md:text-lg sm:text-base"
+            className="text-base sm:text-lg font-semibold mt-3 mb-1.5 text-gray-900 dark:text-gray-100"
           >
             {block.replace("### ", "")}
           </h3>
@@ -93,23 +117,28 @@ const NextStepAI: React.FC = () => {
           );
         }
       } else {
-        const parts = block.split(/\*\*(.*?)\*\*/g);
-        elements.push(
-          <p
-            key={block}
-            className="mb-4 leading-relaxed text-gray-900 dark:text-gray-100 text-base sm:text-sm"
-          >
-            {parts.map((part, index) =>
-              index % 2 === 1 ? (
-                <strong key={index} className="font-semibold">
-                  {part}
-                </strong>
-              ) : (
-                part
-              )
-            )}
-          </p>
-        );
+        const lines = block.split("\n").filter((l) => l.trim() !== "");
+
+        lines.forEach((line, lineIndex) => {
+          const parts = line.split(/\*\*(.*?)\*\*/g);
+          elements.push(
+            <p
+              key={`${block}-${lineIndex}`}
+              className="mb-2 leading-relaxed text-gray-900 dark:text-gray-100 text-sm sm:text-base whitespace-pre-wrap"
+            >
+              {parts.map((part, index) =>
+                index % 2 === 1 ? (
+                  <strong key={index} className="font-semibold">
+                    {part}
+                  </strong>
+                ) : (
+                  part
+                )
+              )}
+              {lineIndex < lines.length - 1 && <br />}
+            </p>
+          );
+        });
       }
     });
 
@@ -172,26 +201,39 @@ const NextStepAI: React.FC = () => {
   }, [input, loading]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({
+        behavior: messages.length > 1 ? "smooth" : "auto",
+        block: "end"
+      });
+    }
+  
+    if (loading && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "auto", block: "end" });
+    }
+  
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      textareaRef.current.style.height = `${Math.min(
+        textareaRef.current.scrollHeight,
+        150
+      )}px`;
     }
-  }, [messages, input]);
+  }, [messages, input, loading]);
 
   useEffect(() => {
     if (loading) {
       const interval = setInterval(() => {
         setCurrentLoadingMessage((prev) => (prev + 1) % loadingMessages.length);
-      }, 3000);
+      }, 4000);
       return () => clearInterval(interval);
     }
   }, [loading]);
 
   return (
-    <div className="h-screen flex flex-col">
-      <div className="flex-1 overflow-y-auto p-4 sm:p-2">
-        <div className="max-w-3xl mx-auto lg:max-w-2xl md:max-w-lg">
+    <div className="h-dvh flex flex-col ">
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-3xl mx-auto lg:max-w-2xl md:max-w-md w-full ">
           <AnimatePresence initial={false}>
             {messages.map((message) => (
               <motion.div
@@ -199,24 +241,24 @@ const NextStepAI: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                className={`my-4 ${message.sender === "user" ? "ml-auto" : ""}`}
+                className={`my-3 ${message.sender === "user" ? "ml-auto" : ""}`}
               >
                 <div
-                  className={`max-w-[90%] sm:max-w-[95%] rounded-lg p-4 ${
+                  className={`max-w-[100%] xs:max-w-[90%] sm:max-w-[85%] rounded-lg p-3 ${
                     message.sender === "user"
                       ? "bg-blue-600 text-white"
-                      : "bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                      : "bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                   }`}
                 >
-                  <div className="flex items-start gap-3">
-                    <div className="mt-1 shrink-0">
+                  <div className=" items-start gap-2 sm:gap-3">
+                    <div className="mt-0.5 shrink-0">
                       {message.sender === "ai" ? (
-                        <Bot className="w-6 h-6 text-green-500" />
+                        <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-green-500" />
                       ) : (
-                        <User className="w-6 h-6 text-blue-200" />
+                        <User className="w-5 h-5 sm:w-6 sm:h-6 text-blue-200" />
                       )}
                     </div>
-                    <div className="flex-1 overflow-x-auto">
+                    <div className="flex-1 overflow-x-auto text-sm sm:text-base">
                       {parseContent(message.content)}
                     </div>
                   </div>
@@ -229,23 +271,75 @@ const NextStepAI: React.FC = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="flex justify-start my-4"
+              className="flex  my-4  sm:max-h-48"
             >
-              <div className="max-w-[90%] sm:max-w-[95%] bg-white dark:bg-gray-700 rounded-lg p-4">
-                <div className="flex items-center gap-3">
-                  <Bot className="w-6 h-6 text-green-500" />
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={currentLoadingMessage}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="text-gray-600 dark:text-gray-300 text-sm sm:text-xs"
-                    >
-                      {loadingMessages[currentLoadingMessage]}
-                    </motion.div>
-                  </AnimatePresence>
+              <div className="max-w-[95%]  xs:max-w-[90%] sm:max-w-[85%] h-full bg-white dark:bg-gray-800 rounded-lg p-3">
+                <div className=" items-start gap-2 sm:gap-3">
+                  <Bot className="mb-3 text-green-500 shrink-0" />
+                  <div className="flex flex-col flex-1 gap-2">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentLoadingMessage}
+                        className="flex flex-col  items-start gap-2 sm:gap-3"
+                      >
+                        <motion.img
+                          src={loadingMessages[currentLoadingMessage].image}
+                          className=" object-cover mb-2 rounded-lg border border-gray-200 dark:border-gray-600"
+                          alt="Loading animation"
+                          transition={{ duration: 0.3 }}
+                        />
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                          className="text-gray-600 dark:text-gray-300 
+            text-sm xs:text-base sm:text-[15px] md:text-sm 
+             items-center gap-2"
+                        >
+                          {/* Animated bouncing dots */}
+                          <motion.span
+                            animate={{ y: [0, -5, 0] }}
+                            transition={{
+                              duration: 1.2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                            }}
+                            className="inline-block"
+                          >
+                            •
+                          </motion.span>
+                          <motion.span
+                            animate={{ y: [0, -5, 0] }}
+                            transition={{
+                              duration: 1.2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: 0.2,
+                            }}
+                            className="inline-block"
+                          >
+                            •
+                          </motion.span>
+                          <motion.span
+                            animate={{ y: [0, -5, 0] }}
+                            transition={{
+                              duration: 1.2,
+                              repeat: Infinity,
+                              ease: "easeInOut",
+                              delay: 0.4,
+                            }}
+                            className="inline-block"
+                          >
+                            •
+                          </motion.span>
+
+                          <span className="ml-2 leading-relaxed">
+                            {loadingMessages[currentLoadingMessage].text}
+                          </span>
+                        </motion.div>
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -254,8 +348,8 @@ const NextStepAI: React.FC = () => {
         </div>
       </div>
 
-      <div className="sticky bottom-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg border-t border-gray-200 dark:border-gray-700">
-        <div className="max-w-3xl mx-auto lg:max-w-2xl md:max-w-lg p-4 sm:p-2">
+      <div className="sticky bottom-0  backdrop-blur-lg border-t border-gray-200 dark:border-gray-700">
+        <div className="max-w-3xl mx-auto lg:max-w-2xl md:max-w-md w-full p-2 sm:p-4">
           <motion.div
             whileHover={{ scale: 1.005 }}
             className="relative shadow-sm"
@@ -270,7 +364,7 @@ const NextStepAI: React.FC = () => {
                   handleSend();
                 }
               }}
-              className="w-full p-4 pr-12 rounded-lg bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 resize-none overflow-hidden placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-sm"
+              className="w-full p-3 pr-12 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 resize-none overflow-hidden placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base min-h-[44px]"
               placeholder="Send a message..."
               rows={1}
               disabled={loading}
@@ -280,17 +374,17 @@ const NextStepAI: React.FC = () => {
               whileTap={{ scale: 0.9 }}
               onClick={handleSend}
               disabled={!input.trim() || loading}
-              className={`absolute right-3 bottom-3 p-2 rounded-lg ${
+              className={`absolute right-2 bottom-2 p-1.5 sm:p-2 rounded-md ${
                 !input.trim() || loading
-                  ? "bg-gray-100 dark:bg-gray-600 text-gray-400"
+                  ? "bg-gray-100 dark:bg-gray-700 text-gray-400"
                   : "bg-blue-500 text-white hover:bg-blue-600"
               }`}
               aria-label="Send message"
             >
-              <ArrowUp className="w-5 h-5" />
+              <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.button>
           </motion.div>
-          <p className="text-center text-xs text-gray-500 dark:text-gray-400 mt-2">
+          <p className="text-center text-[11px] sm:text-xs text-gray-500 dark:text-gray-400 mt-2 px-2">
             NextStep AI can make mistakes. Verify important information.
           </p>
         </div>
