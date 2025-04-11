@@ -15,6 +15,9 @@ import {
   Brain,
   Store,
   Codepen,
+  ReceiptText,
+  ShieldPlus,
+  Newspaper,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -24,6 +27,7 @@ interface SidebarProps {
 
 const navItems = [
   { to: "/", icon: Home, label: "Home" },
+  { to: "/blog", icon: Newspaper, label: "Blog" },
   { to: "/careers", icon: Briefcase, label: "Careers" },
   { to: "/degrees", icon: GraduationCap, label: "Degrees" },
   { to: "/certifications", icon: TicketCheck, label: "Certifications" },
@@ -38,6 +42,9 @@ const navItems = [
   // { to: "/store", icon: Store, label: "Store" },
   { to: "/contact-us", icon: Briefcase, label: "Contact Us" },
   { to: "/about", icon: Users, label: "About" },
+    
+  { to: "/terms-and-conditions", icon: ReceiptText, label: "Terms And Conditions" },
+  { to: "/privacy-policy", icon: ShieldPlus, label: "Privacy Policy" },
 ];
 
 const sidebarVariants = {

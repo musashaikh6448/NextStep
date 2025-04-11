@@ -23,7 +23,9 @@ import Store from "./pages/Store"
 import Footer from "./components/Footer";
 import LearnLanguages from "./pages/LearnLanguages"
 import LanguagesPage from "./pages/LanguagesPage";
-import AdsteraSocialBar from "./components/AdsteraSocialBar";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import BlogPage from "./pages/BlogPage";
 
 function App() {
   const theme = useStore((state) => state.theme);
@@ -53,6 +55,9 @@ function App() {
             <Route path="/store" element={<Store />} />
             <Route path="/career/:id" element={<CareerDetails />} />
             <Route path="*" element={<WorkInProgress />} />
+            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/blog" element={<BlogPage />} />
           </Routes>
         </Layout>
         <ScrollToTop />
@@ -74,7 +79,6 @@ function App() {
         }}
 
       />
-      {/* <AdsteraSocialBar /> */}
     </div>
   );
 }

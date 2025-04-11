@@ -2,7 +2,6 @@ import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Search, Filter, Clock, Award, DollarSign, Link } from "lucide-react";
 import { certifications } from "../data/certifications";
-import AdsterraNativeBanner from "../components/AdsterraNativeBanner";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -331,7 +330,6 @@ export const Certifications: React.FC = () => {
           </div>
         </div>
       </motion.div>
-      <AdsterraNativeBanner/>
 
     </div>
   );

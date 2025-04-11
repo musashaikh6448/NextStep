@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Construction, Code2, Coffee, Rocket, AlertTriangle, RefreshCw } from "lucide-react";
-import AdsterraBanner from "../components/AdsterraBanner";
 
 export const WorkInProgress: React.FC = () => {
   const memes = [
@@ -11,7 +10,6 @@ export const WorkInProgress: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
-            <AdsterraBanner/>
 
       {/* Floating background elements */}
       <motion.div
