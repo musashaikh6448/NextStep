@@ -23,6 +23,7 @@ import Store from "./pages/Store"
 import Footer from "./components/Footer";
 import LearnLanguages from "./pages/LearnLanguages"
 import LanguagesPage from "./pages/LanguagesPage";
+import Privacy from "./pages/Privacy";
 
 function App() {
   const theme = useStore((state) => state.theme);
@@ -50,6 +51,7 @@ function App() {
             <Route path="/careers" element={<Careers />} />
             <Route path="/store" element={<Store/>} />
             <Route path="/career/:id" element={<CareerDetails />} />
+            <Route path="/privacy" element={<Privacy/>}/>
             <Route path="*" element={<WorkInProgress />} />
           </Routes>
         </Layout>
