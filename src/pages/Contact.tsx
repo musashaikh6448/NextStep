@@ -458,7 +458,7 @@ export const Contact: React.FC = () => {
       </motion.div> */}
 
         {/* Final CTA */}
-        <motion.div
+        {/* <motion.div
           className="mt-16 text-center p-8 rounded-xl bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-900"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -488,7 +488,7 @@ export const Contact: React.FC = () => {
               View Pricing
             </motion.button>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
      <div className="">
      <AnimatePresence>{isSubmitting && <LoaderOverlay />}</AnimatePresence>
