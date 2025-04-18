@@ -44,7 +44,7 @@ function App() {
             <Route path="/playground" element={<CodeEditor />} />
             <Route path="/ask-me-anything" element={<AMAPage />} />
             <Route path="/next-step-ai" element={<NextStepAI />} />
-            <Route path="/aboutk" element={<About />} />
+            <Route path="/about" element={<About />} />
             <Route path="/learn-language" element={<LearnLanguages />} />
             <Route path="/languages/:languageName" element={<LanguagesPage />} />
             <Route path="/community" element={<Community />} />
