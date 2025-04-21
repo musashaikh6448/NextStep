@@ -7,7 +7,6 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Mail, MessageSquareText, Star, User } from "lucide-react";
 import { LoaderOverlay } from "../components/LoaderOverlay";
-import AdsterraBanner from "../components/AdsterraBanner";
 
 const feedbackSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -283,7 +282,6 @@ export const Feedback: React.FC = () => {
       <div className="">
      <AnimatePresence>{isSubmitting && <LoaderOverlay />}</AnimatePresence>
      </div>
-     <AdsterraBanner/>
 
     </div>
   );

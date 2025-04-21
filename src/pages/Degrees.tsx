@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Search, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { degrees } from "../data/degrees";
-import AdsterraNativeBanner from "../components/AdsterraNativeBanner";
 
 export const Degrees: React.FC = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -149,7 +148,6 @@ export const Degrees: React.FC = () => {
           </p>
         </motion.div>
       )}
-      <AdsterraNativeBanner />
 
     </div>
   );
