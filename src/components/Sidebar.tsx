@@ -41,7 +41,7 @@ const navItems = [
   { to: "/feedback", icon: BookOpen, label: "Feedback" },
   // { to: "/store", icon: Store, label: "Store" },
   { to: "/contact-us", icon: Briefcase, label: "Contact Us" },
-  // { to: "/about", icon: Users, label: "About" },
+  { to: "/about", icon: Users, label: "About" },
     
   { to: "/terms-and-conditions", icon: ReceiptText, label: "Terms And Conditions" },
   { to: "/privacy-policy", icon: ShieldPlus, label: "Privacy Policy" },

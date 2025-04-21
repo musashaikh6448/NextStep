@@ -7,7 +7,7 @@ import musaimg from '../images/musa.jpeg'
 const teamMembers = [
   {
     name: "Suleman Khan",
-    role: "Senior Software Engineer",
+    role: "Software Engineer",
     image: sulemanimg,
     education: "BCA Graduate (Passed, but I Have No Idea How)",
     experience: "SELECTSKILLSET, Ireland · 3+ years experience",
@@ -17,7 +17,7 @@ const teamMembers = [
       linkedin: "https://www.linkedin.com/in/suleman-khan-304ab6279/",
       email: "mailto:dev.suleman.khan@gmail.com",
       insta: "https://instagram.com/suleman_khan55",
-      whatsapp: "https://wa.me/919373960682", // Changed phone to whatsapp
+      whatsapp: "https://wa.me/919373960682", 
     },
   },
   {
@@ -32,7 +32,7 @@ const teamMembers = [
       linkedin: "https://www.linkedin.com/in/shaikh-musa-77a80631a/",
       email: "mailto:dev.shaikhmusa@gmail.com",
       insta: "https://instagram.com/shaikh.musa.08",
-      whatsapp: "https://wa.me/917822896448", // Changed phone to whatsapp
+      whatsapp: "https://wa.me/917822896448", 
     },
   },
 ];
