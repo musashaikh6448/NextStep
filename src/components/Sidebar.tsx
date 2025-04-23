@@ -12,12 +12,11 @@ import {
   TicketCheck,
   Braces,
   Sparkles,
-  Brain,
-  Store,
-  Codepen,
   ReceiptText,
   ShieldPlus,
   Newspaper,
+  NewspaperIcon,
+  Search,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -31,9 +30,11 @@ const navItems = [
   { to: "/careers", icon: Briefcase, label: "Careers" },
   { to: "/degrees", icon: GraduationCap, label: "Degrees" },
   { to: "/certifications", icon: TicketCheck, label: "Certifications" },
-  // { to: "/learn-language", icon: Codepen, label: "Learn Languages" },
-  { to: "/next-step-ai", icon: Sparkles, label: "Next Step AI" },
   { to: "/playground", icon: Braces, label: "Code Playground" },
+  { to: "/job", icon: Search, label: "Jobs" },
+  // { to: "/learn-language", icon: Codepen, label: "Learn Languages" },
+  { to: "/news", icon: NewspaperIcon, label: "News" },
+  { to: "/next-step-ai", icon: Sparkles, label: "Next Step AI" },
   // { to: "/quiz", icon: Brain , label: "Quiz" },
   { to: "/resume-builder", icon: FileText, label: "Resume Builder" },
   
