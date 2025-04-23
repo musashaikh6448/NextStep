@@ -93,7 +93,7 @@ const Section: React.FC<{ title: string; jobs: JobSite[] }> = ({ title, jobs }) 
       {jobs.map((site, index) => (
         <div
           key={index}
-          className="bg-slate-800 rounded-xl p-5 shadow hover:shadow-lg transition duration-300"
+          className="bg-slate-800 rounded-xl p-4 w-[95%] shadow hover:shadow-lg transition duration-300"
         >
           <h3 className="text-xl font-semibold text-blue-300">{site.name}</h3>
           <a href={site.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 underline">
