@@ -37,7 +37,9 @@ const wfoHybridJobs: JobSite[] = [
   { name: "HCLTech", url: "https://www.hcltech.com/careers", description: "Jobs for fresh graduates and laterals | WFO & Hybrid." },
   { name: "IBM", url: "https://www.ibm.com/employment", description: "Global tech roles for experienced candidates | WFO & Hybrid." },
   { name: "Accenture", url: "https://www.accenture.com/in-en/careers", description: "Global hiring with WFH and hybrid opportunities." },
-  { name: "Deloitte", url: "https://www2.deloitte.com/global/en/careers.html", description: "Consulting and tech roles | WFO & Hybrid." }
+  { name: "Deloitte", url: "https://www2.deloitte.com/global/en/careers.html", description: "Consulting and tech roles | WFO & Hybrid." },
+  { name: "Tata Consultancy Services", url: "https://www.tcs.com/careers", description: "Global IT services and consulting roles." },
+  { name: "Flipkart", url: "https://www.flipkartcareers.com", description: "Tech and operations roles across India." }
 ];
 
 // Part-Time & Full-Time
@@ -54,15 +56,12 @@ const timeBasedJobs: JobSite[] = [
   { name: "CareerBuilder", url: "https://careerbuilder.com", description: "Job search and career advice for job seekers." }
 ];
 
-// Indian & International
-const indiaAndGlobalJobs: JobSite[] = [
-  { name: "Zoho Corp (India)", url: "https://careers.zohocorp.com", description: "Tech & Support roles | Across India." },
+// International
+const internationalJobs: JobSite[] = [
   { name: "Microsoft", url: "https://careers.microsoft.com", description: "Tech & Management jobs globally." },
   { name: "Accenture", url: "https://www.accenture.com/in-en/careers", description: "Global hiring with WFH and hybrid opportunities." },
   { name: "Byju’s", url: "https://byjus.com/careers", description: "Hiring across Sales, Tech, and Academic roles." },
   { name: "Amazon", url: "https://www.amazon.jobs", description: "Global opportunities in tech, logistics, and more." },
-  { name: "Flipkart", url: "https://www.flipkartcareers.com", description: "Tech and operations roles across India." },
-  { name: "Tata Consultancy Services", url: "https://www.tcs.com/careers", description: "Global IT services and consulting roles." },
   { name: "Adobe", url: "https://www.adobe.com/careers.html", description: "Creative and tech roles globally." },
   { name: "SAP", url: "https://www.sap.com/careers.html", description: "Global opportunities in enterprise software." },
   { name: "Oracle", url: "https://www.oracle.com/corporate/careers", description: "Global tech and consulting roles." },
@@ -121,40 +120,60 @@ const Job: React.FC = () => {
     { id: "experienced", label: "Experienced" },
     { id: "part-time", label: "Part-Time" },
     { id: "full-time", label: "Full-Time" },
-    { id: "india", label: "India" },
     { id: "remote", label: "Remote" },
     { id: "hybrid", label: "Hybrid" },
-    { id: "wfo", label: "WFO" }
+    { id: "wfo", label: "WFO" },
+    { id: "international", label: "International" }
   ];
 
   const getSectionTitle = (tabId: string) => {
     switch (tabId) {
-      case "fresher": return "Fresher-Friendly Jobs";
-      case "experienced": return "Experienced Jobs";
-      case "part-time": return "Part-Time Jobs";
-      case "full-time": return "Full-Time Jobs";
-      case "india": return "Jobs in India";
-      case "remote": return "Remote Job Websites";
-      case "hybrid": return "Hybrid Roles";
-      case "wfo": return "Work From Office Roles";
-      default: return "Explore Job Opportunities";
+      case "fresher":
+        return "Fresher-Friendly Jobs";
+      case "experienced":
+        return "Experienced Jobs";
+      case "part-time":
+        return "Part-Time Jobs";
+      case "full-time":
+        return "Full-Time Jobs";
+      case "remote":
+        return "Remote Job Websites";
+      case "hybrid":
+        return "Hybrid Roles";
+      case "wfo":
+        return "Work From Office Roles";
+      case "international":
+        return "International Jobs";
+      default:
+        return "Explore Job Opportunities";
     }
   };
 
   const getFilteredJobs = (tabId: string) => {
     switch (tabId) {
-      case "remote": return filterJobs(remoteJobs, tabId);
-      case "hybrid": case "wfo": return filterJobs(wfoHybridJobs, tabId);
-      case "part-time": case "full-time": return filterJobs(timeBasedJobs, tabId);
-      case "india": return filterJobs(indiaAndGlobalJobs, tabId);
-      case "fresher": case "experienced": return filterJobs(fresherExperienceJobs, tabId);
+      case "remote":
+        return remoteJobs;
+      case "hybrid":
+        return filterJobs(wfoHybridJobs, "hybrid");
+      case "wfo":
+        return filterJobs(wfoHybridJobs, "wfo");
+      case "part-time":
+        return filterJobs(timeBasedJobs, "part-time");
+      case "full-time":
+        return filterJobs(timeBasedJobs, "full-time");
+      case "fresher":
+        return filterJobs(fresherExperienceJobs, "fresher");
+      case "experienced":
+        return filterJobs(fresherExperienceJobs, "experienced");
+      case "international":
+        return internationalJobs;
       default:
         return [
-          ...filterJobs(remoteJobs, tabId),
-          ...filterJobs(wfoHybridJobs, tabId),
-          ...filterJobs(timeBasedJobs, tabId),
-          ...filterJobs(indiaAndGlobalJobs, tabId),
-          ...filterJobs(fresherExperienceJobs, tabId)
+          ...remoteJobs,
+          ...wfoHybridJobs,
+          ...timeBasedJobs,
+          ...internationalJobs,
+          ...fresherExperienceJobs
         ];
     }
   };
