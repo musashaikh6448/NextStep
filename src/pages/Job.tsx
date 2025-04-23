@@ -87,19 +87,28 @@ const fresherExperienceJobs: JobSite[] = [
 ];
 
 const Section: React.FC<{ title: string; jobs: JobSite[] }> = ({ title, jobs }) => (
-  <section className="mb-10">
-    <h2 className="text-3xl font-semibold text-indigo-400 mb-4">{title}</h2>
-    <div className="grid md:grid-cols-2 gap-6">
+  <section className="mb-10 px-4 sm:px-6 lg:px-8">
+    <h2 className="text-2xl sm:text-3xl font-semibold text-indigo-400 mb-4 sm:mb-6 text-center sm:text-left">
+      {title}
+    </h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
       {jobs.map((site, index) => (
         <div
           key={index}
-          className="bg-slate-800 rounded-xl p-4 w-[95%] shadow hover:shadow-lg transition duration-300"
+          className="bg-slate-800 rounded-xl p-4 w-full shadow hover:shadow-lg transition duration-300 hover:-translate-y-1"
         >
-          <h3 className="text-xl font-semibold text-blue-300">{site.name}</h3>
-          <a href={site.url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-400 underline">
+          <h3 className="text-lg sm:text-xl font-semibold text-blue-300 mb-2">{site.name}</h3>
+          <a
+            href={site.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs sm:text-sm text-blue-400 underline break-words hover:text-blue-300 transition-colors"
+          >
             {site.url}
           </a>
-          <p className="text-sm text-gray-300 mt-2">{site.description}</p>
+          <p className="text-xs sm:text-sm text-gray-300 mt-2 leading-relaxed">
+            {site.description}
+          </p>
         </div>
       ))}
     </div>
@@ -128,74 +137,59 @@ const Job: React.FC = () => {
 
   const getSectionTitle = (tabId: string) => {
     switch (tabId) {
-      case "fresher":
-        return "Fresher-Friendly Jobs";
-      case "experienced":
-        return "Experienced Jobs";
-      case "part-time":
-        return "Part-Time Jobs";
-      case "full-time":
-        return "Full-Time Jobs";
-      case "remote":
-        return "Remote Job Websites";
-      case "hybrid":
-        return "Hybrid Roles";
-      case "wfo":
-        return "Work From Office Roles";
-      case "international":
-        return "International Jobs";
-      default:
-        return "Explore Job Opportunities";
+      case "fresher": return "Fresher-Friendly Jobs";
+      case "experienced": return "Experienced Jobs";
+      case "part-time": return "Part-Time Jobs";
+      case "full-time": return "Full-Time Jobs";
+      case "remote": return "Remote Job Websites";
+      case "hybrid": return "Hybrid Roles";
+      case "wfo": return "Work From Office Roles";
+      case "international": return "International Jobs";
+      default: return "Explore Job Opportunities";
     }
   };
 
   const getFilteredJobs = (tabId: string) => {
     switch (tabId) {
-      case "remote":
-        return remoteJobs;
-      case "hybrid":
-        return filterJobs(wfoHybridJobs, "hybrid");
-      case "wfo":
-        return filterJobs(wfoHybridJobs, "wfo");
-      case "part-time":
-        return filterJobs(timeBasedJobs, "part-time");
-      case "full-time":
-        return filterJobs(timeBasedJobs, "full-time");
-      case "fresher":
-        return filterJobs(fresherExperienceJobs, "fresher");
-      case "experienced":
-        return filterJobs(fresherExperienceJobs, "experienced");
-      case "international":
-        return internationalJobs;
-      default:
-        return [
-          ...remoteJobs,
-          ...wfoHybridJobs,
-          ...timeBasedJobs,
-          ...internationalJobs,
-          ...fresherExperienceJobs
-        ];
+      case "remote": return remoteJobs;
+      case "hybrid": return filterJobs(wfoHybridJobs, "hybrid");
+      case "wfo": return filterJobs(wfoHybridJobs, "wfo");
+      case "part-time": return filterJobs(timeBasedJobs, "part-time");
+      case "full-time": return filterJobs(timeBasedJobs, "full-time");
+      case "fresher": return filterJobs(fresherExperienceJobs, "fresher");
+      case "experienced": return filterJobs(fresherExperienceJobs, "experienced");
+      case "international": return internationalJobs;
+      default: return [
+        ...remoteJobs,
+        ...wfoHybridJobs,
+        ...timeBasedJobs,
+        ...internationalJobs,
+        ...fresherExperienceJobs
+      ];
     }
   };
 
   return (
-    <div className="p-5">
-      <h1 className="text-4xl font-bold text-center text-white mb-8">Job Explorer</h1>
-      <div className="flex flex-wrap justify-center gap-2 mb-6">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-white mb-6 sm:mb-8">
+        Job Explorer
+      </h1>
+      
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6">
         {tabs.map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 rounded-full text-sm font-medium ${
-              activeTab === tab.id
-                ? "bg-indigo-400 text-black"
-                : "bg-slate-700 text-white hover:bg-indigo-300 hover:text-black"
-            } transition`}
+            className={`px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium rounded-full transition duration-200
+              ${activeTab === tab.id
+                ? "bg-indigo-400 text-black shadow-lg"
+                : "bg-slate-700 text-white hover:bg-indigo-300 hover:text-black"}`}
           >
             {tab.label}
           </button>
         ))}
       </div>
+
       <Section title={getSectionTitle(activeTab)} jobs={getFilteredJobs(activeTab)} />
     </div>
   );
