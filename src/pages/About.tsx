@@ -7,7 +7,7 @@ import musaimg from '../images/musa.jpeg'
 const teamMembers = [
   {
     name: "Suleman Khan",
-    role: "Software Engineer",
+    role: "Software Developer",
     image: sulemanimg,
     education: "BCA Graduate (Passed, but I Have No Idea How)",
     experience: "SELECTSKILLSET, Ireland · 3+ years experience",
@@ -61,7 +61,7 @@ export const About: React.FC = () => {
       {/* Team Section */}
       <section>
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">
-          Our Tech Warriors
+          Our Tech Team
         </h2>
         <div className="grid md:grid-cols-2 gap-8">
           {teamMembers.map((member, index) => (
