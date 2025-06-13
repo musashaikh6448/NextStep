@@ -8,7 +8,7 @@ const teamMembers = [
   {
     name: "Suleman Khan",
     role: "Software Developer",
-    image: sulemanimg,
+    image: "https://t3.ftcdn.net/jpg/07/24/59/76/360_F_724597608_pmo5BsVumFcFyHJKlASG2Y2KpkkfiYUU.jpg",
     education: "BCA Graduate (Passed, but I Have No Idea How)",
     experience: "SELECTSKILLSET, Ireland · 3+ years experience",
     bio: "Full-stack developer who believes in writing code so clean it makes the compiler smile. Tech Stack: React, Node.js, AWS (Still figuring out why cloud bills are so unpredictable)",
@@ -23,7 +23,7 @@ const teamMembers = [
   {
     name: "Shaikh Musa",
     role: "MERN Stack Developer",
-    image: musaimg,
+    image: "https://t3.ftcdn.net/jpg/07/24/59/76/360_F_724597608_pmo5BsVumFcFyHJKlASG2Y2KpkkfiYUU.jpg",
     education: "BCA Student (Future First Class)",
     experience: "Open Source Contributor · Tech Mentor",
     bio: "Backend specialist who can turn coffee into Python code. Believes in writing documentation that even future self can understand  Syntax Error Specialist",
