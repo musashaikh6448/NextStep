@@ -25,21 +25,20 @@ const IDENTITY_KEYWORDS = [
   "who designed you",
   "who coded you",
 ];
-const imageUrls = [
-  "https://indianmemetemplates.com/wp-content/uploads/Bhai-yeh-to-koi-response-hi-nahi-de-raha-1200x674.jpg",
-  "https://i.pinimg.com/736x/d7/33/b6/d733b6cd8efe9d99a74b08063a21ed26.jpg",
-  "https://indianmemetemplates.com/wp-content/uploads/abhi-theek-karke-deta-hu.jpg",
-  "https://scrolldroll.com/wp-content/uploads/2021/09/Clear-Bol-Clear-bollywood-Meme-Templates-2021.jpeg",
-];
+// const imageUrls = [
+//   "https://indianmemetemplates.com/wp-content/uploads/Bhai-yeh-to-koi-response-hi-nahi-de-raha-1200x674.jpg",
+//   "https://i.pinimg.com/736x/d7/33/b6/d733b6cd8efe9d99a74b08063a21ed26.jpg",
+//   "https://indianmemetemplates.com/wp-content/uploads/abhi-theek-karke-deta-hu.jpg",
+//   "https://scrolldroll.com/wp-content/uploads/2021/09/Clear-Bol-Clear-bollywood-Meme-Templates-2021.jpeg",
+// ];
 
 const loadingMessages = [
   {
-    text: "The server is busy... still trying to reach it!",
-    image: imageUrls[0],
+    text: "The server is busy... still trying to reach it!"
   },
-  { text: "Hang on, trying another server...", image: imageUrls[1] },
-  { text: "Working on your request...", image: imageUrls[2] },
-  { text: "Double-check your prompt for typos!", image: imageUrls[3] },
+  { text: "Hang on, trying another server..." },
+  { text: "Working on your request..." },
+  { text: "Double-check your prompt for typos!" },
 ];
 
 const CodeBlock: React.FC<{ code: string; language: string }> = ({
@@ -169,15 +168,15 @@ const NextStepAI: React.FC = () => {
       const aiResponse = isIdentityQuestion
         ? CREATOR_RESPONSE
         : await fetch(
-            "https://magicloops.dev/api/loop/be256522-45be-43eb-9edc-fb3aca33cb36/run",
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ question: input }),
-            }
-          )
-            .then((res) => res.json())
-            .then((data) => data.answer || ERROR_RESPONSE);
+          "https://magicloops.dev/api/loop/be256522-45be-43eb-9edc-fb3aca33cb36/run",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ question: input }),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => data.answer || ERROR_RESPONSE);
 
       setMessages((prev) => [
         ...prev,
@@ -255,11 +254,10 @@ const NextStepAI: React.FC = () => {
                 className={`my-2 ${message.sender === "user" ? "ml-auto" : ""}`}
               >
                 <div
-                  className={`max-w-[95%] xs:max-w-[90%] rounded-lg p-3 ${
-                    message.sender === "user"
+                  className={`max-w-[95%] xs:max-w-[90%] rounded-lg p-3 ${message.sender === "user"
                       ? "bg-blue-600 text-white"
                       : "bg-white dark:bg-gray-800 shadow-sm"
-                  }`}
+                    }`}
                 >
                   <div className="flex gap-2 items-start">
                     <div className="mt-1 shrink-0">
@@ -293,11 +291,7 @@ const NextStepAI: React.FC = () => {
                         key={currentLoadingMessage}
                         className="flex flex-col gap-2"
                       >
-                        <motion.img
-                          src={loadingMessages[currentLoadingMessage].image}
-                          className="w-full rounded-lg border border-gray-200 dark:border-gray-600"
-                          alt="Loading indicator"
-                        />
+                       
                         <div className="text-gray-600 dark:text-gray-300 text-sm">
                           <div className="flex items-center gap-1">
                             {[...Array(3)].map((_, i) => (
@@ -353,11 +347,10 @@ const NextStepAI: React.FC = () => {
               whileTap={{ scale: 0.9 }}
               onClick={handleSend}
               disabled={!input.trim() || loading}
-              className={`absolute right-2 bottom-2 p-1.5 rounded-md ${
-                !input.trim() || loading
+              className={`absolute right-2 bottom-2 p-1.5 rounded-md ${!input.trim() || loading
                   ? "opacity-50 cursor-not-allowed"
                   : "hover:bg-blue-600"
-              } bg-blue-500 text-white`}
+                } bg-blue-500 text-white`}
               aria-label="Send message"
             >
               <ArrowUp className="w-4 h-4" />
