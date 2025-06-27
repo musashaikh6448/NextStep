@@ -1,18 +1,18 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Linkedin, Mail, Instagram, MessageCircle } from "lucide-react"; // Changed Phone to MessageCircle for WhatsApp
-import sulemanimg from '../images/suleman.jpeg'
-import musaimg from '../images/musa.jpeg'
+import { Linkedin, Mail, Instagram, MessageCircle } from "lucide-react";
+import sulemanimg from '../images/suleman.jpeg';
+import musaimg from '../images/musa.jpeg';
 
 const teamMembers = [
   {
     name: "Suleman Khan",
     role: "Software Developer",
     image: sulemanimg,
-    education: "BCA Graduate (Passed, but I Have No Idea How)",
+    education: "BCA Graduate",
     experience: "SELECTSKILLSET, Ireland · 3+ years experience",
-    bio: "Full-stack developer who believes in writing code so clean it makes the compiler smile. Tech Stack: React, Node.js, AWS (Still figuring out why cloud bills are so unpredictable)",
-    expertise: "AWS Certified · DevOps Enthusiast",
+    bio: "Full-stack developer passionate about creating intuitive digital experiences. I enjoy bridging the gap between complex systems and user-friendly interfaces. When I'm not coding, you'll find me exploring new tech or mentoring juniors.",
+    expertise: "AWS Certified · DevOps Specialist",
     social: {
       linkedin: "https://www.linkedin.com/in/suleman-khan-304ab6279/",
       email: "mailto:dev.suleman.khan@gmail.com",
@@ -24,10 +24,10 @@ const teamMembers = [
     name: "Shaikh Musa",
     role: "MERN Stack Developer",
     image: musaimg,
-    education: "BCA Student (Future First Class)",
+    education: "BCA Student",
     experience: "Open Source Contributor · Tech Mentor",
-    bio: "Backend specialist who can turn coffee into Python code. Believes in writing documentation that even future self can understand  Syntax Error Specialist",
-    expertise: "Python Expert · Database Wizard",
+    bio: "Backend developer with a love for clean architecture and efficient systems. I believe technology should empower people, and I'm passionate about making coding accessible to everyone. Currently exploring AI integration with web technologies.",
+    expertise: "Python Developer · Database Architect",
     social: {
       linkedin: "https://www.linkedin.com/in/shaikh-musa-77a80631a/",
       email: "mailto:dev.shaikhmusa@gmail.com",
@@ -47,21 +47,21 @@ export const About: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-500 bg-clip-text text-transparent mb-4"
         >
-          Technical Career Path
+          Crafting Digital Futures
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
         >
-          Bridging college concepts with industry requirements
+          Where academic knowledge meets real-world innovation
         </motion.p>
       </section>
 
       {/* Team Section */}
       <section>
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">
-          Our Tech Team
+          Meet Our Team
         </h2>
         <div className="grid md:grid-cols-2 gap-8">
           {teamMembers.map((member, index) => (
@@ -104,16 +104,12 @@ export const About: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-600 dark:text-gray-400 hover:text-blue-500 transition-colors"
-                        title={
-                          platform === "whatsapp"
-                            ? "Message after 10AM - 6PM (IST)"
-                            : "Let's connect!"
-                        }
+                        title="Let's connect!"
                       >
                         {platform === "insta" ? (
                           <Instagram className="h-6 w-6" />
                         ) : platform === "whatsapp" ? (
-                          <MessageCircle className="h-6 w-6" /> // Using MessageCircle for WhatsApp
+                          <MessageCircle className="h-6 w-6" />
                         ) : (
                           {
                             linkedin: <Linkedin className="h-6 w-6" />,
@@ -137,41 +133,32 @@ export const About: React.FC = () => {
         whileInView={{ scale: 1 }}
       >
         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-          Developer Chronicles 👨💻
+          Our Development Philosophy 🌱
         </h3>
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
-            <h4 className="font-semibold mb-2">Suleman's Coding Wisdom</h4>
+            <h4 className="font-semibold mb-2">Suleman's Approach</h4>
             <p className="text-gray-600 dark:text-gray-300">
-              "Remember: Your first Hello World program
-              <br />
-              is just the beginning of infinite semicolons"
+              "Great software starts with understanding people. 
+              Every line of code should solve real human needs."
             </p>
             <div className="mt-2 text-sm text-blue-600 dark:text-blue-400">
-              Student Tip: Start with small projects,
-              <br />
-              the compiler errors will grow with you
+              Advice to students: Focus on fundamentals, 
+              frameworks will follow naturally
             </div>
           </div>
           <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
-            <h4 className="font-semibold mb-2">Musa's Python Advice</h4>
+            <h4 className="font-semibold mb-2">Musa's Perspective</h4>
             <p className="text-gray-600 dark:text-gray-300">
-              "Python doesn't use curly braces,
-              <br />
-              but you'll still find yourself searching for missing ones"
+              "Technology grows best in collaborative environments. 
+              Let's build solutions that bring people together."
             </p>
             <div className="mt-2 text-sm text-green-600 dark:text-green-400">
-              First Year Mantra:
-              <br />
-              print("I'll understand this someday")
+              New developer tip: Embrace the learning journey - 
+              every challenge is growth in disguise
             </div>
           </div>
         </div>
-        <img
-          src="https://placehold.co/800x400?text=From+Hello+World+to+System+Design"
-          alt="The developer journey"
-          className="rounded-2xl mx-auto border border-gray-200 dark:border-gray-700"
-        />
       </motion.div>
 
       {/* Coding Truths */}
@@ -181,34 +168,32 @@ export const About: React.FC = () => {
         whileInView={{ opacity: 1 }}
       >
         <h3 className="text-2xl font-bold text-center mb-4">
-          Developer Truths
+          Our Core Beliefs
         </h3>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
-            <p className="font-bold text-xl">For New Developers</p>
+            <p className="font-bold text-xl">Continuous Learning</p>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              "Your first program works?
-              <br />
-              Don't worry, that won't last long"
+              "We view every project as an opportunity 
+              to grow and improve our craft"
             </p>
           </div>
           <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
-            <p className="font-bold text-xl">College vs Reality</p>
+            <p className="font-bold text-xl">Collaborative Spirit</p>
             <p className="text-lg text-gray-600 dark:text-gray-300">
-              "In exams: Write bubble sort
-              <br />
-              In interviews: Why bubble sort?"
+              "The best solutions emerge when diverse 
+              perspectives work together"
             </p>
           </div>
         </div>
       </motion.div>
 
-      {/* Pro Tip */}
+      {/* Closing Note */}
       <div className="text-center text-sm text-gray-400 dark:text-gray-500 mt-8">
-        {teamMembers[0].name.split(" ")[0]} writes production code,
-        {teamMembers[1].name.split(" ")[1]} writes readable code.
+        {teamMembers[0].name.split(" ")[0]} brings system architecture expertise,
+        {teamMembers[1].name.split(" ")[1]} focuses on user-centric design.
         <div className="text-xs mt-2">
-          Together we write: // TODO: Fix this later
+          Together we believe: Technology should connect, not complicate
         </div>
       </div>
     </div>

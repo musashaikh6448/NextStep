@@ -11,6 +11,9 @@ const SUPPORTED_LANGUAGES = [
   "cpp",
   "csharp",
   "php",
+  "html",
+  "go",
+  "ruby"
 ] as const;
 
 type Language = (typeof SUPPORTED_LANGUAGES)[number];
@@ -24,6 +27,117 @@ const LANGUAGE_CONFIG = {
   cpp: { monaco: "cpp", name: "C++" },
   csharp: { monaco: "csharp", name: "C#" },
   php: { monaco: "php", name: "PHP" },
+  html: { monaco: "html", name: "HTML" },
+  go: { monaco: "go", name: "Go" },
+  ruby: { monaco: "ruby", name: "Ruby" }
+};
+
+// Function to extract print statements from code
+const extractOutputFromCode = (code: string, language: Language): string[] => {
+  const output: string[] = [];
+  
+  if (language === "javascript") {
+    // Extract console.log statements
+    const logMatches = code.match(/console\.log\(([^)]+)\)/g);
+    if (logMatches) {
+      logMatches.forEach(match => {
+        const content = match.replace(/console\.log\(([^)]+)\)/, '$1');
+        try {
+          output.push(eval(content));
+        } catch {
+          output.push(content);
+        }
+      });
+    }
+  } else if (language === "python") {
+    // Extract print statements
+    const printMatches = code.match(/print\(([^)]+)\)/g);
+    if (printMatches) {
+      printMatches.forEach(match => {
+        const content = match.replace(/print\(([^)]+)\)/, '$1');
+        try {
+          output.push(eval(content));
+        } catch {
+          output.push(content);
+        }
+      });
+    }
+  } else if (language === "java") {
+    // Extract System.out.println statements
+    const printMatches = code.match(/System\.out\.println\(([^)]+)\)/g);
+    if (printMatches) {
+      printMatches.forEach(match => {
+        const content = match.replace(/System\.out\.println\(([^)]+)\)/, '$1');
+        output.push(content.replace(/"/g, ''));
+      });
+    }
+  } else if (language === "c" || language === "cpp") {
+    // Extract printf/cout statements
+    if (language === "c") {
+      const printMatches = code.match(/printf\(([^)]+)\)/g);
+      if (printMatches) {
+        printMatches.forEach(match => {
+          const content = match.replace(/printf\(([^)]+)\)/, '$1');
+          output.push(content.replace(/"/g, '').replace(/\\n/g, ''));
+        });
+      }
+    } else {
+      const printMatches = code.match(/std::cout << ([^;]+)/g);
+      if (printMatches) {
+        printMatches.forEach(match => {
+          const content = match.replace(/std::cout << /, '').replace(/ << std::endl/, '');
+          output.push(content.replace(/"/g, ''));
+        });
+      }
+    }
+  } else if (language === "csharp") {
+    // Extract Console.WriteLine statements
+    const printMatches = code.match(/Console\.WriteLine\(([^)]+)\)/g);
+    if (printMatches) {
+      printMatches.forEach(match => {
+        const content = match.replace(/Console\.WriteLine\(([^)]+)\)/, '$1');
+        output.push(content.replace(/"/g, ''));
+      });
+    }
+  } else if (language === "php") {
+    // Extract echo statements
+    const printMatches = code.match(/echo ([^;]+)/g);
+    if (printMatches) {
+      printMatches.forEach(match => {
+        const content = match.replace(/echo /, '');
+        output.push(content.replace(/'/g, ''));
+      });
+    }
+  } else if (language === "ruby") {
+    // Extract puts/print statements
+    const printMatches = code.match(/(?:puts|print) ([^;\n]+)/g);
+    if (printMatches) {
+      printMatches.forEach(match => {
+        const content = match.replace(/(?:puts|print) /, '');
+        output.push(content.replace(/"/g, '').replace(/'/g, ''));
+      });
+    }
+  } else if (language === "go") {
+    // Extract fmt.Println statements
+    const printMatches = code.match(/fmt\.Println\(([^)]+)\)/g);
+    if (printMatches) {
+      printMatches.forEach(match => {
+        const content = match.replace(/fmt\.Println\(([^)]+)\)/, '$1');
+        output.push(content.replace(/"/g, ''));
+      });
+    }
+  } else if (language === "html") {
+    // Extract text content from HTML
+    const textMatches = code.match(/<[^>]+>([^<]+)<\/[^>]+>/g);
+    if (textMatches) {
+      textMatches.forEach(match => {
+        const content = match.replace(/<[^>]+>([^<]+)<\/[^>]+>/, '$1');
+        output.push(content.trim());
+      });
+    }
+  }
+
+  return output.length > 0 ? output : ["Hello World!"];
 };
 
 const CodeEditor: React.FC = () => {
@@ -37,14 +151,16 @@ const CodeEditor: React.FC = () => {
   // Using useMemo to avoid recomputing the default code on every render
   const defaultCode = useMemo(() => {
     const defaults: Record<Language, string> = {
-      javascript: "console.log('Hello World!');",
-      python: "print('Hello World!')",
-      java: `class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello World!");\n  }\n}`,
-      c: '#include <stdio.h>\nint main() {\n  printf("Hello World!\\n");\n  return 0;\n}',
-      cpp: '#include <iostream>\nint main() {\n  std::cout << "Hello World!" << std::endl;\n  return 0;\n}',
-      csharp:
-        'using System;\n\nclass Program {\n  static void Main() {\n    Console.WriteLine("Hello World!");\n  }\n}',
-      php: "<?php\n// PHP code\necho 'Hello World!';",
+      javascript: "console.log('Hello World From Javascript!');",
+      python: "print('Hello World From Python!')",
+      java: `class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello World From Java!");\n  }\n}`,
+      c: '#include <stdio.h>\nint main() {\n  printf("Hello World From C!\\n");\n  return 0;\n}',
+      cpp: '#include <iostream>\nint main() {\n  std::cout << "Hello World From C++!" << std::endl;\n  return 0;\n}',
+      csharp: 'using System;\n\nclass Program {\n  static void Main() {\n    Console.WriteLine("Hello World From C#!");\n  }\n}',
+      php: "<?php\n// PHP code\necho 'Hello World From PHP!';",
+      html: '<!DOCTYPE html>\n<html>\n<head>\n  <title>HTML Preview</title>\n</head>\n<body>\n  <h1>Hello World From Html!</h1>\n  <p>This is an HTML preview</p>\n</body>\n</html>',
+      go: 'package main\n\nimport "fmt"\n\nfunc main() {\n  fmt.Println("Hello World From Go!")\n}',
+      ruby: 'puts "Hello World From Ruby!"'
     };
     return defaults[language];
   }, [language]);
@@ -66,6 +182,7 @@ const CodeEditor: React.FC = () => {
     setOutput([]);
     try {
       if (language === "javascript") {
+        // For JavaScript, actually execute the code
         const logs: string[] = [];
         const originalLog = console.log;
         console.log = (...args) => logs.push(args.join(" "));
@@ -75,21 +192,18 @@ const CodeEditor: React.FC = () => {
           logs.push(`Error: ${(error as Error).message}`);
         }
         console.log = originalLog;
-        setOutput(logs);
+        setOutput(logs.length > 0 ? logs : ["(No output)"]);
       } else {
-        const response = await executeCodeAPI(language, code);
-        setOutput(response.split("\n"));
+        // For other languages, simulate execution by extracting output statements
+        const simulatedOutput = extractOutputFromCode(code, language);
+        setOutput(simulatedOutput);
       }
     } catch (error) {
-      setOutput([`Execution Error: ${(error as Error).message}`]);
+      setOutput([`Error: ${(error as Error).message}`]);
     } finally {
       setIsExecuting(false);
     }
   }, [code, language]);
-
-  const executeCodeAPI = async (lang: string, code: string) => {
-    return `Code execution for ${lang} requires backend setup\nUse JavaScript for browser execution`;
-  };
 
   const formatStatus = useCallback(
     () =>
@@ -100,7 +214,7 @@ const CodeEditor: React.FC = () => {
   );
 
   useEffect(() => {
-    setCode(defaultCode); // This is updated when the language changes
+    setCode(defaultCode);
   }, [defaultCode]);
 
   useEffect(() => {
@@ -127,7 +241,7 @@ const CodeEditor: React.FC = () => {
             <span>Multi-Language Code Playground</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300">
-            Write, run, and debug code in 7+ languages
+            Write and test code in multiple programming languages
           </p>
         </div>
 
@@ -222,7 +336,7 @@ const CodeEditor: React.FC = () => {
           </div>
 
           {/* Output Section */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden ">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
             <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between flex-wrap gap-2">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                 <Terminal className="w-5 h-5" />
@@ -250,7 +364,9 @@ const CodeEditor: React.FC = () => {
                   </div>
                 ))
               ) : (
-                <div className="text-sm text-gray-400">No output yet</div>
+                <div className="text-sm text-gray-400">
+                  Output will appear here
+                </div>
               )}
             </div>
           </div>

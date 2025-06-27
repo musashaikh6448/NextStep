@@ -10,7 +10,7 @@ interface Message {
 }
 
 const CREATOR_RESPONSE =
-  "I’m an AI assistant developed by Suleman Khan, designed to provide intelligent, helpful, and engaging support across a wide range of topics. How can I assist you today?";
+  "I’m an AI assistant developed by NextStep Devlopers, designed to provide intelligent, helpful, and engaging support across a wide range of topics. How can I assist you today?";
 const ERROR_RESPONSE =
   "Sorry, there was an error processing your request. Please try again.";
 const IDENTITY_KEYWORDS = [
@@ -82,7 +82,7 @@ const NextStepAI: React.FC = () => {
   const initialMessage: Message = {
     id: "1",
     content:
-      "Hello! I'm NextStep AI. Ask me about programming, technology, or career paths. I was developed by Suleman Khan.",
+      "Hello! I'm NextStep AI. Ask me about programming, technology, or career paths. I was developed by NextStep Devlopers.",
     sender: "ai",
     timestamp: new Date(),
   };
