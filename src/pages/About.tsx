@@ -1,14 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Linkedin, Mail, Instagram, MessageCircle } from "lucide-react";
-import sulemanimg from '../images/suleman.jpeg';
-import musaimg from '../images/musa.jpeg';
+// import sulemanimg from '../images/suleman.jpeg';
+// import musaimg from '../images/musa.jpeg';
 
 const teamMembers = [
   {
     name: "Suleman Khan",
     role: "Software Developer",
-    image: sulemanimg,
+    // image: sulemanimg,
     education: "BCA Graduate",
     experience: "SELECTSKILLSET, Ireland · 3+ years experience",
     bio: "Full-stack developer passionate about creating intuitive digital experiences. I enjoy bridging the gap between complex systems and user-friendly interfaces. When I'm not coding, you'll find me exploring new tech or mentoring juniors.",
@@ -23,7 +23,7 @@ const teamMembers = [
   {
     name: "Shaikh Musa",
     role: "MERN Stack Developer",
-    image: musaimg,
+    // image: musaimg,
     education: "BCA Student",
     experience: "Open Source Contributor · Tech Mentor",
     bio: "Backend developer with a love for clean architecture and efficient systems. I believe technology should empower people, and I'm passionate about making coding accessible to everyone. Currently exploring AI integration with web technologies.",
