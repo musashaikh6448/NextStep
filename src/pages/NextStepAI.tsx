@@ -11,8 +11,10 @@ interface Message {
 
 const CREATOR_RESPONSE =
   "I'm an AI assistant developed by NextStep Devlopers, designed to provide intelligent, helpful, and engaging support across a wide range of topics. How can I assist you today?";
+
 const ERROR_RESPONSE =
   "Sorry, there was an error processing your request. Please try again.";
+
 const IDENTITY_KEYWORDS = [
   "who are you",
   "who created you",
@@ -31,12 +33,14 @@ const CodeBlock: React.FC<{ code: string; language: string }> = ({
   language,
 }) => {
   const [copied, setCopied] = useState(false);
+
   const handleCopy = () => {
     navigator.clipboard.writeText(code).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
   };
+
   return (
     <div className="relative my-2 group max-w-[95vw] md:max-w-[85vw]">
       <div className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
@@ -78,6 +82,7 @@ const NextStepAI: React.FC = () => {
   const parseContent = useCallback((content: string) => {
     const elements: JSX.Element[] = [];
     const blocks = content.split(/(```[\s\S]*?```|### .+)/g);
+
     blocks.filter(Boolean).forEach((block, index) => {
       if (block.startsWith("### ")) {
         elements.push(
@@ -122,17 +127,20 @@ const NextStepAI: React.FC = () => {
         });
       }
     });
+
     return elements;
   }, []);
 
   const handleSend = useCallback(async () => {
     if (!input.trim() || loading) return;
+
     const userMessage: Message = {
       id: Date.now().toString(),
       content: input,
       sender: "user",
       timestamp: new Date(),
     };
+
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setLoading(true);
@@ -141,6 +149,7 @@ const NextStepAI: React.FC = () => {
       const isIdentityQuestion = IDENTITY_KEYWORDS.some((keyword) =>
         input.toLowerCase().includes(keyword)
       );
+
       const aiResponse = isIdentityQuestion
         ? CREATOR_RESPONSE
         : await fetch(
@@ -183,7 +192,7 @@ const NextStepAI: React.FC = () => {
       messagesEndRef.current?.scrollIntoView({
         behavior: messages.length > 1 ? "smooth" : "auto",
         block: "end",
-        inline: "nearest"
+        inline: "nearest",
       });
     };
 
@@ -205,7 +214,7 @@ const NextStepAI: React.FC = () => {
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [messages, loading, messages.length]);
+  }, [messages, loading]);
 
   return (
     <div className="h-dvh flex flex-col">
@@ -325,4 +334,3 @@ const NextStepAI: React.FC = () => {
 };
 
 export default NextStepAI;
- 
