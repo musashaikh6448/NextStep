@@ -25,22 +25,22 @@ const IDENTITY_KEYWORDS = [
   "who designed you",
   "who coded you",
 ];
-const imageUrls = [
-  "https://indianmemetemplates.com/wp-content/uploads/Bhai-yeh-to-koi-response-hi-nahi-de-raha-1200x674.jpg",
-  "https://i.pinimg.com/736x/d7/33/b6/d733b6cd8efe9d99a74b08063a21ed26.jpg",
-  "https://indianmemetemplates.com/wp-content/uploads/abhi-theek-karke-deta-hu.jpg",
-  "https://scrolldroll.com/wp-content/uploads/2021/09/Clear-Bol-Clear-bollywood-Meme-Templates-2021.jpeg",
-];
+// const imageUrls = [
+//   "https://indianmemetemplates.com/wp-content/uploads/Bhai-yeh-to-koi-response-hi-nahi-de-raha-1200x674.jpg",
+//   "https://i.pinimg.com/736x/d7/33/b6/d733b6cd8efe9d99a74b08063a21ed26.jpg",
+//   "https://indianmemetemplates.com/wp-content/uploads/abhi-theek-karke-deta-hu.jpg",
+//   "https://scrolldroll.com/wp-content/uploads/2021/09/Clear-Bol-Clear-bollywood-Meme-Templates-2021.jpeg",
+// ];
 
-const loadingMessages = [
-  {
-    text: "The server is busy... still trying to reach it!",
-    image: imageUrls[0],
-  },
-  { text: "Hang on, trying another server...", image: imageUrls[1] },
-  { text: "Working on your request...", image: imageUrls[2] },
-  { text: "Double-check your prompt for typos!", image: imageUrls[3] },
-];
+// const loadingMessages = [
+//   {
+//     text: "The server is busy... still trying to reach it!",
+//     image: imageUrls[0],
+//   },
+//   { text: "Hang on, trying another server...", image: imageUrls[1] },
+//   { text: "Working on your request...", image: imageUrls[2] },
+//   { text: "Double-check your prompt for typos!", image: imageUrls[3] },
+// ];
 
 const CodeBlock: React.FC<{ code: string; language: string }> = ({
   code,
