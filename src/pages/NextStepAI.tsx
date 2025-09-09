@@ -281,8 +281,8 @@ const NextStepAI: React.FC = () => {
         </div>
       </div>
 
-      <div className="sticky bottom-0 backdrop-blur-lg border-t border-gray-200 dark\:border-gray-700">
-        <div className="max-w-3xl mx-auto p-2 sm\:p-4">
+      <div className="sticky bottom-0  backdrop-blur-lg border-t border-gray-200 dark:border-gray-700">
+        <div className="max-w-3xl mx-auto p-2 sm:p-4">
           <motion.div whileHover={{ scale: 1.005 }} className="relative">
             <textarea
               ref={textareaRef}
@@ -294,7 +294,7 @@ const NextStepAI: React.FC = () => {
                   handleSend();
                 }
               }}
-              className="w-full p-3 pr-12 rounded-lg bg-white dark\:bg-gray-800 border border-gray-200 dark\:border-gray-700 resize-none overflow-hidden placeholder-gray-500 text-sm focus\:outline-none focus\:ring-2 focus\:ring-blue-500"
+              className="w-full p-3 pr-12 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 resize-none overflow-hidden placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Type your message..."
               rows={1}
               disabled={loading}
@@ -305,17 +305,17 @@ const NextStepAI: React.FC = () => {
               whileTap={{ scale: 0.9 }}
               onClick={handleSend}
               disabled={!input.trim() || loading}
-              className={`absolute right-2 bottom-2 p-1.5 rounded-md \${
+              className={`absolute right-2 bottom-2 p-1.5 rounded-md ${
                 !input.trim() || loading
                   ? "opacity-50 cursor-not-allowed"
-                  : "hover\:bg-blue-600"
+                  : "hover:bg-blue-600"
               } bg-blue-500 text-white`}
               aria-label="Send message"
             >
               <ArrowUp className="w-4 h-4" />
             </motion.button>
           </motion.div>
-          <p className="text-center text-xs text-gray-500 dark\:text-gray-400 mt-2">
+          <p className="text-center text-xs text-gray-500 dark:text-gray-400 mt-2">
             NextStep AI may occasionally generate incorrect information
           </p>
         </div>
